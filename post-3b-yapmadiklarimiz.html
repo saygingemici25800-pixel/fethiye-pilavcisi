@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, initial-scale=1.0">
+<title>Fethiye Pilavcısı — Biz Ne Yapmayız?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#0a0a0a;}
+  body{
+    font-family:'Inter', system-ui, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+  }
+
+  .canvas{
+    width:1080px;
+    height:1080px;
+    position:relative;
+    overflow:hidden;
+    background:#FBF5E4;
+    color:#0A1418;
+    font-family:'Inter', system-ui, sans-serif;
+  }
+
+  /* Repeating "DÜRÜST" wordmark pattern */
+  .wordpattern{
+    position:absolute;
+    inset:-100px;
+    transform:rotate(-6deg);
+    font-family:'Bebas Neue', sans-serif;
+    font-size:180px;
+    letter-spacing:8px;
+    color:rgba(217,68,44,0.06);
+    line-height:0.85;
+    white-space:nowrap;
+    user-select:none;
+    pointer-events:none;
+  }
+
+  /* TOP BAR — logo (left) | stamp (right) */
+  .top{
+    position:absolute;
+    top:50px;
+    left:50px;
+    right:50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    z-index:2;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    background:none;
+  }
+  .logo svg{
+    display:block;
+    background:none;
+  }
+
+  .stamp{
+    display:inline-block;
+    border:3px solid #D9442C;
+    color:#D9442C;
+    padding:8px 18px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:26px;
+    letter-spacing:3px;
+    transform:rotate(-4deg);
+    background:rgba(255,255,255,0.05);
+    white-space:nowrap;
+  }
+
+  /* HEADLINE */
+  .headline-wrap{
+    position:absolute;
+    top:170px;
+    left:50px;
+    right:50px;
+    z-index:2;
+  }
+  .headline{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:140px;
+    line-height:0.88;
+    color:#0A1418;
+    letter-spacing:-1px;
+  }
+  .headline .accent{
+    color:#0E7A85;
+    font-style:italic;
+  }
+
+  /* LIST */
+  .list{
+    position:absolute;
+    top:470px;
+    left:60px;
+    right:60px;
+    z-index:2;
+  }
+  .row{
+    display:grid;
+    grid-template-columns:60px 1fr;
+    gap:24px;
+    padding:20px 0;
+    border-bottom:2px solid rgba(10,20,24,0.15);
+    align-items:center;
+  }
+  .row:last-child{border-bottom:none;}
+  .x{
+    width:50px;
+    height:50px;
+    border-radius:25px;
+    background:#D9442C;
+    color:white;
+    display:grid;
+    place-items:center;
+    font-size:32px;
+    font-weight:800;
+    line-height:1;
+  }
+  .no{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:42px;
+    letter-spacing:1px;
+    color:#0A1418;
+    line-height:1;
+    text-decoration:line-through;
+    text-decoration-color:#D9442C;
+    text-decoration-thickness:3px;
+  }
+  .yes{
+    font-size:22px;
+    color:#0E7A85;
+    margin-top:6px;
+    font-weight:600;
+  }
+
+  /* Footer */
+  .footer{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:#0A1418;
+    color:#F5EDD8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 40px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:22px;
+    letter-spacing:2px;
+    z-index:2;
+  }
+  .footer .dot{ color:#1FB6C1; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+
+    <div class="wordpattern">
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+      <div>DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST DÜRÜST </div>
+    </div>
+
+    <div class="top">
+      <div class="logo">
+        <svg viewBox="0 0 240 100" width="168" height="70" overflow="visible">
+          <!-- chef hat -->
+          <path d="M 50 25 Q 40 10 55 8 Q 65 0 75 8 Q 90 5 88 22 Q 95 30 85 38 L 35 38 Q 25 30 32 22 Q 30 5 50 8 Z" fill="none" stroke="#0A1418" stroke-width="2.5"/>
+          <rect x="32" y="38" width="56" height="6" fill="#0A1418" opacity="0.9"/>
+          <!-- text -->
+          <text x="100" y="42" font-family="Inter, sans-serif" font-style="italic" font-size="14" font-weight="700" fill="#0A1418">FETHİYE</text>
+          <text x="100" y="62" font-family="Inter, sans-serif" font-style="italic" font-size="20" font-weight="800" fill="#0A1418" letter-spacing="1">PİLAVCISI</text>
+        </svg>
+      </div>
+      <div class="stamp">SÖZÜMÜZ VAR</div>
+    </div>
+
+    <div class="headline-wrap">
+      <div class="headline">
+        BİZ NE<br>
+        <span class="accent">YAPMAYIZ?</span>
+      </div>
+    </div>
+
+    <div class="list">
+      <div class="row">
+        <div class="x">✗</div>
+        <div>
+          <div class="no">Dünden kalan pilav</div>
+          <div class="yes">→ Her sabah taze pişer.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="x">✗</div>
+        <div>
+          <div class="no">Donuk tavuk</div>
+          <div class="yes">→ Günlük, lokal kasaptan.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="x">✗</div>
+        <div>
+          <div class="no">Kapalı fiyat</div>
+          <div class="yes">→ Menüde ne yazıyorsa o.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="x">✗</div>
+        <div>
+          <div class="no">Hijyen pazarlığı</div>
+          <div class="yes">→ Mutfak her zaman açık.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>@FETHIYE.PILAVCISI</span>
+      <span class="dot">●</span>
+      <span>0507 111 76 10</span>
+      <span class="dot">●</span>
+      <span>TUZLA · FETHİYE</span>
+    </div>
+
+  </div>
+</body>
+</html>

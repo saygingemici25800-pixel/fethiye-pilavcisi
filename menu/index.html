@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FAF8F3">
+<title>Fethiye Pilavcısı · Menü</title>
+<meta name="description" content="Fethiye Pilavcısı menü — tavuklu pilav, kuru fasulye, kavurma. Tuzla, İnönü Bulvarı No: 143/A.">
+<meta property="og:title" content="Fethiye Pilavcısı · Menü">
+<meta property="og:description" content="Her kaşıkta ayrı bir keyif. Tuzla'nın pilav adresi.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF8F3;
+    --ink:#1A1A1A;
+    --ink-soft:#1A1A1Acc;
+    --ink-mute:#1A1A1A66;
+    --ink-faint:#1A1A1A1F;
+    --hair:#1A1A1A14;
+    --hair-strong:#1A1A1A24;
+    --cyan:#00B4C8;
+    --serif:'Fraunces', 'Times New Roman', serif;
+    --sans:'DM Sans', system-ui, sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    background:#EFE9DC;
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:400;
+    line-height:1.45;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    font-feature-settings:"ss01","ss02";
+  }
+  .frame{
+    width:100%;
+    max-width:480px;
+    background:var(--bg);
+    min-height:100vh;
+    position:relative;
+  }
+
+  /* HEADER */
+  header.bar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--bg);
+    border-bottom:1px solid var(--hair);
+    padding:14px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    backdrop-filter:saturate(1.2);
+  }
+  .brandmark{
+    display:flex;
+    align-items:center;
+    gap:0;
+  }
+  .brandmark svg{ display:block; height:32px; width:auto; }
+  .lang{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--sans);
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:1.4px;
+  }
+  .lang button{
+    background:none;
+    border:0;
+    color:var(--ink);
+    font:inherit;
+    cursor:pointer;
+    padding:4px 2px;
+    opacity:0.38;
+    transition:opacity .18s ease;
+    letter-spacing:1.4px;
+  }
+  .lang button.active{ opacity:1; color:var(--ink); }
+  .lang .sep{
+    width:1px;
+    height:11px;
+    background:var(--hair-strong);
+    display:inline-block;
+  }
+
+  /* HERO */
+  .hero{
+    padding:62px 28px 44px;
+    text-align:center;
+  }
+  .kicker{
+    font-family:var(--sans);
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:2.6px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-size:54px;
+    line-height:1.0;
+    font-weight:400;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  .hero h1 .ampshape{
+    font-style:italic;
+    font-weight:300;
+  }
+  .hero .subtitle{
+    margin-top:22px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:16px;
+    line-height:1.45;
+    color:var(--ink-soft);
+    max-width:300px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  /* CATEGORY HEADER */
+  .cat{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:38px 28px 14px;
+  }
+  .cat .line{ flex:1; height:1px; background:var(--hair-strong); }
+  .cat .label{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:400;
+    font-size:14px;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+    white-space:nowrap;
+  }
+
+  /* MENU CARDS */
+  .menu{ padding:0 22px; }
+  .item{
+    padding:34px 6px;
+    border-bottom:1px solid var(--hair);
+  }
+  .item:last-child{ border-bottom:0; }
+
+  .portions{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:10px;
+    margin-top:22px;
+  }
+  .portion{
+    cursor:pointer;
+    text-align:center;
+    border:0;
+    background:none;
+    padding:0;
+    font:inherit;
+    color:inherit;
+  }
+  .portion .thumb{
+    aspect-ratio:1/1;
+    background:#F0EADA;
+    border-radius:2px;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .25s ease;
+    opacity:0.55;
+    border:1px solid transparent;
+  }
+  .portion .thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .portion .thumb svg{
+    width:78%;
+    height:78%;
+  }
+  .portion.active .thumb{
+    opacity:1;
+    border:2px solid var(--cyan);
+    box-shadow:0 1px 12px rgba(0,180,200,0.06);
+  }
+  .portion .size{
+    margin-top:10px;
+    font-family:var(--sans);
+    font-size:10px;
+    letter-spacing:1.8px;
+    text-transform:uppercase;
+    font-weight:500;
+    color:var(--ink-mute);
+    transition:color .25s ease;
+  }
+  .portion.active .size{
+    color:var(--cyan);
+  }
+
+  .name-tr{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .name-en{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:13px;
+    color:var(--ink-mute);
+    margin-top:5px;
+    letter-spacing:0.01em;
+  }
+
+  .prices{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:10px;
+    margin-top:20px;
+    align-items:end;
+  }
+  .price{
+    text-align:center;
+    font-family:var(--serif);
+    font-weight:300;
+    color:var(--ink);
+    opacity:0.42;
+    transition:opacity .25s ease, font-size .25s ease;
+    font-size:18px;
+    line-height:1;
+    letter-spacing:-0.02em;
+  }
+  .price .currency{
+    font-size:0.55em;
+    margin-right:2px;
+    vertical-align:0.18em;
+    opacity:0.7;
+    font-weight:400;
+  }
+  .price.active{
+    opacity:1;
+    font-size:30px;
+    color:var(--ink);
+  }
+
+  /* DRINKS */
+  .drinks{
+    padding:0 28px 12px;
+  }
+  .drink{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    padding:13px 0;
+    border-bottom:1px solid var(--hair);
+  }
+  .drink:last-child{ border-bottom:0; }
+  .drink .names{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    flex-shrink:0;
+  }
+  .drink .name-tr-d{
+    font-family:var(--serif);
+    font-size:15px;
+    font-weight:400;
+    color:var(--ink);
+  }
+  .drink .name-en-d{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:11px;
+    color:var(--ink-mute);
+  }
+  .drink .leader{
+    flex:1;
+    border-bottom:1px dotted var(--ink-faint);
+    margin:0 4px 6px;
+    align-self:end;
+  }
+  .drink .price-d{
+    font-family:var(--serif);
+    font-weight:300;
+    font-size:18px;
+    letter-spacing:-0.01em;
+    align-self:center;
+  }
+  .drink .price-d .currency{
+    font-size:0.6em;
+    margin-right:1px;
+    vertical-align:0.18em;
+    opacity:0.6;
+  }
+
+  /* FOOTER */
+  footer.foot{
+    padding:60px 28px 48px;
+    text-align:center;
+    margin-top:24px;
+  }
+  .foot .kicker{ color:var(--cyan); margin-bottom:18px; }
+  .foot .phone{
+    display:inline-block;
+    font-family:var(--serif);
+    font-size:36px;
+    font-weight:400;
+    color:var(--ink);
+    text-decoration:none;
+    letter-spacing:-0.01em;
+    line-height:1;
+    transition:opacity .2s ease;
+  }
+  .foot .phone:hover{ opacity:0.6; }
+  .foot .addr{
+    margin-top:18px;
+    font-family:var(--sans);
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  .foot .dot{ color:var(--cyan); margin:0 6px; font-size:8px; vertical-align:2px; }
+  .foot .closer{
+    margin-top:44px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:12px;
+    color:var(--ink-mute);
+    letter-spacing:0.04em;
+  }
+
+  /* small responsive tweaks */
+  @media (max-width: 360px){
+    .hero h1{ font-size:46px; }
+    .name-tr{ font-size:20px; }
+    .price.active{ font-size:26px; }
+    .foot .phone{ font-size:32px; }
+  }
+
+  @media print{
+    body{ background:#fff; }
+    .frame{ max-width:none; }
+    header.bar{ position:static; }
+    .portion .thumb{ opacity:1 !important; border-color:#000 !important; }
+    .price{ opacity:1 !important; font-size:14px !important; }
+    .price.active{ font-size:18px !important; font-weight:500 !important; }
+    .foot .phone:hover{ opacity:1; }
+    a{ color:#000; }
+    .kicker, .foot .dot, .portion.active .size{ color:#000 !important; }
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <header class="bar">
+    <div class="brandmark" aria-label="Fethiye Pilavcısı">
+      <svg viewBox="0 0 240 100" width="116" height="32" overflow="visible">
+        <path d="M 50 25 Q 40 10 55 8 Q 65 0 75 8 Q 90 5 88 22 Q 95 30 85 38 L 35 38 Q 25 30 32 22 Q 30 5 50 8 Z" fill="none" stroke="#1A1A1A" stroke-width="3"/>
+        <rect x="32" y="38" width="56" height="6" fill="#1A1A1A"/>
+        <text x="100" y="42" font-family="DM Sans, sans-serif" font-style="italic" font-size="14" font-weight="700" fill="#1A1A1A">FETHİYE</text>
+        <text x="100" y="62" font-family="DM Sans, sans-serif" font-style="italic" font-size="20" font-weight="800" fill="#1A1A1A" letter-spacing="1">PİLAVCISI</text>
+      </svg>
+    </div>
+    <div class="lang" role="group" aria-label="Dil seçimi">
+      <button class="lang-btn active" data-lang="tr" aria-label="Türkçe">TR</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="kicker">
+      <span data-tr="Geleneksel Lezzet" data-en="Traditional Taste">Geleneksel Lezzet</span>
+    </div>
+    <h1>
+      <span data-tr="Fethiye" data-en="Fethiye">Fethiye</span>
+      <span class="ampshape" data-tr="Pilavcısı" data-en="Pilavcısı">Pilavcısı</span>
+    </h1>
+    <p class="subtitle">
+      <span data-tr="Her kaşıkta ayrı bir keyif." data-en="A different pleasure in every spoon.">Her kaşıkta ayrı bir keyif.</span>
+    </p>
+  </section>
+
+  <div class="cat">
+    <span class="line" aria-hidden="true"></span>
+    <span class="label">
+      <span data-tr="Pilav Çeşitleri" data-en="Rice Selection">Pilav Çeşitleri</span>
+    </span>
+    <span class="line" aria-hidden="true"></span>
+  </div>
+
+  <section class="menu" id="menu" aria-label="Menü"></section>
+
+  <div class="cat">
+    <span class="line" aria-hidden="true"></span>
+    <span class="label">
+      <span data-tr="İçecekler" data-en="Drinks">İçecekler</span>
+    </span>
+    <span class="line" aria-hidden="true"></span>
+  </div>
+
+  <section class="drinks" id="drinks" aria-label="İçecekler"></section>
+
+  <footer class="foot">
+    <div class="kicker">
+      <span data-tr="Paket Servis" data-en="Take Away">Paket Servis</span>
+    </div>
+    <a class="phone" href="tel:+905071117610" aria-label="Telefon ile ara">0507 111 76 10</a>
+    <div class="addr">
+      Tuzla, İnönü Bulvarı No: 143/A
+      <span class="dot">●</span>
+      Fethiye
+    </div>
+    <div class="closer">
+      <span data-tr="Afiyet olsun" data-en="Enjoy your meal">Afiyet olsun</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  const menu = [
+    {slug:'tavuklu', tr:'Tavuklu Pilav', en:'Chicken with Rice', prices:[150,220,280]},
+    {slug:'fasulyeli', tr:'Kuru Fasulyeli Pilav', en:'Beans with Rice', prices:[150,220,280]},
+    {slug:'soteli', tr:'Tavuk Soteli Pilav', en:'Sauteed Chicken with Rice', prices:[200,280,330]},
+    {slug:'kori', tr:'Köri Soslu Tavuk Pilav', en:'Curry Sauce Chicken with Rice', prices:[200,280,330]},
+    {slug:'ciger', tr:'Tavuk Ciğer Pilav', en:'Chicken Liver with Rice', prices:[200,280,330]},
+    {slug:'kremali', tr:'Kremalı Kekikli Tavuk', en:'Creamy Thyme Chicken with Rice', prices:[200,280,330]},
+    {slug:'kavurma', tr:'Pilav Üstü Kavurma', en:'Roasted Meat over Rice', prices:[250,350,450]},
+    {slug:'nohutlu', tr:'Nohutlu Sade Pilav', en:'Plain Rice with Chickpeas', prices:[100,150,200]},
+  ];
+  const drinks = [
+    {tr:'Kutu Meşrubat', en:'Soft Drinks', price:80},
+    {tr:'Cola Şişe', en:'Bottled Cola', price:60},
+    {tr:'Süzme Yoğurt', en:'Strained Yogurt', price:40},
+    {tr:'Büyük Ayran', en:'Buttermilk (L)', price:40},
+    {tr:'Küçük Ayran', en:'Buttermilk (S)', price:30},
+    {tr:'Su', en:'Water', price:20},
+  ];
+
+  const sizeKeys = ['az','1p','15p'];
+  const sizeLabels = ['AZ','1P','1.5P'];
+
+  function plateSvg(portionIdx){
+    const riceScale = [0.42, 0.58, 0.74][portionIdx];
+    const rw = 40 * riceScale;
+    const rh = 13 * riceScale;
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="50" cy="58" rx="38" ry="11" fill="#1A1A1A" opacity="0.05"/>
+        <ellipse cx="50" cy="52" rx="40" ry="13" fill="#ffffff" stroke="#1A1A1A" stroke-opacity="0.12" stroke-width="0.6"/>
+        <ellipse cx="50" cy="52" rx="34" ry="10" fill="#FAF8F3" stroke="#1A1A1A" stroke-opacity="0.08" stroke-width="0.4"/>
+        <ellipse cx="50" cy="50" rx="${rw}" ry="${rh}" fill="#E8D9A8"/>
+        <ellipse cx="50" cy="49" rx="${rw*0.7}" ry="${rh*0.55}" fill="#F2E5BB" opacity="0.7"/>
+        <circle cx="${50 - rw*0.3}" cy="${49 - rh*0.2}" r="0.7" fill="#B89B5E" opacity="0.5"/>
+        <circle cx="${50 + rw*0.2}" cy="${49 + rh*0.1}" r="0.7" fill="#B89B5E" opacity="0.5"/>
+        <circle cx="${50 + rw*0.4}" cy="${49 - rh*0.3}" r="0.5" fill="#B89B5E" opacity="0.4"/>
+      </svg>`;
+  }
+
+  const menuEl = document.getElementById('menu');
+  menu.forEach((item) => {
+    const card = document.createElement('article');
+    card.className = 'item';
+    card.dataset.slug = item.slug;
+    card.dataset.active = '1';
+
+    const portionsRow = sizeKeys.map((sk, i) => `
+        <button class="portion ${i===1?'active':''}" data-idx="${i}" aria-label="Porsiyon ${sizeLabels[i]}">
+          <div class="thumb" data-thumb="${i}">${plateSvg(i)}</div>
+          <div class="size">${sizeLabels[i]}</div>
+        </button>`).join('');
+
+    const pricesRow = item.prices.map((p, i) => `
+      <div class="price ${i===1?'active':''}" data-price="${i}"><span class="currency">₺</span>${p}</div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="name-tr" data-tr="${item.tr}" data-en="${item.en}">${item.tr}</div>
+      <div class="name-en" data-tr="${item.en}" data-en="${item.tr}">${item.en}</div>
+      <div class="portions">${portionsRow}</div>
+      <div class="prices">${pricesRow}</div>
+    `;
+
+    sizeKeys.forEach((sk, i) => {
+      const probe = new Image();
+      probe.onload = () => {
+        const t = card.querySelector(`[data-thumb="${i}"]`);
+        if (t) t.innerHTML = `<img src="photos/${item.slug}-${sk}.jpg" alt="${item.tr} ${sizeLabels[i]}" loading="lazy">`;
+      };
+      probe.src = `photos/${item.slug}-${sk}.jpg`;
+    });
+
+    card.addEventListener('click', (e) => {
+      const btn = e.target.closest('.portion');
+      if (!btn) return;
+      const i = +btn.dataset.idx;
+      card.dataset.active = i;
+      card.querySelectorAll('.portion').forEach(b => b.classList.toggle('active', +b.dataset.idx === i));
+      card.querySelectorAll('.price').forEach(p => p.classList.toggle('active', +p.dataset.price === i));
+    });
+
+    menuEl.appendChild(card);
+  });
+
+  const drinksEl = document.getElementById('drinks');
+  drinks.forEach(d => {
+    const row = document.createElement('div');
+    row.className = 'drink';
+    row.innerHTML = `
+      <div class="names">
+        <span class="name-tr-d" data-tr="${d.tr}" data-en="${d.en}">${d.tr}</span>
+        <span class="name-en-d" data-tr="${d.en}" data-en="${d.tr}">${d.en}</span>
+      </div>
+      <span class="leader" aria-hidden="true"></span>
+      <span class="price-d"><span class="currency">₺</span>${d.price}</span>
+    `;
+    drinksEl.appendChild(row);
+  });
+
+  function applyLang(lang){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-tr][data-en]').forEach(el => {
+      el.textContent = el.getAttribute('data-' + lang);
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+    try { localStorage.setItem('fp_lang', lang); } catch(_){}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.addEventListener('click', () => applyLang(b.dataset.lang));
+  });
+
+  let saved = 'tr';
+  try { saved = localStorage.getItem('fp_lang') || 'tr'; } catch(_){}
+  applyLang(saved);
+})();
+</script>
+</body>
+</html>

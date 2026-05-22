@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, initial-scale=1.0">
+<title>Fethiye Pilavcısı — Pilavın Adresi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#0a0a0a;}
+  body{
+    font-family:'Inter', system-ui, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+  }
+
+  .canvas{
+    width:1080px;
+    height:1080px;
+    position:relative;
+    overflow:hidden;
+    background:#0E3A45;
+    color:#0A1418;
+    font-family:'Inter', system-ui, sans-serif;
+  }
+
+  /* Photo anchored to top — plate sits in lower fifth */
+  .photo{
+    position:absolute;
+    inset:0;
+    background-image:url('assets/brand-photo.png');
+    background-size:cover;
+    background-position:center top;
+    filter:brightness(0.6) saturate(1.08);
+  }
+
+  /* Heavy top mask (mutes storefront sign), clear plate zone, dark footer transition */
+  .overlay{
+    position:absolute;
+    inset:0;
+    background: linear-gradient(180deg,
+      rgba(10,20,24,0.94) 0%,
+      rgba(10,20,24,0.86) 18%,
+      rgba(10,20,24,0.60) 38%,
+      rgba(10,20,24,0.22) 56%,
+      rgba(10,20,24,0.05) 70%,
+      rgba(10,20,24,0.05) 84%,
+      rgba(10,20,24,0.80) 96%,
+      rgba(10,20,24,1) 100%);
+  }
+
+  /* TOP BAR — 3 columns: logo (left) | kicker (center) | est (right) */
+  .top{
+    position:absolute;
+    top:40px;
+    left:50px;
+    right:50px;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    column-gap:24px;
+    z-index:2;
+  }
+  .logo{
+    justify-self:start;
+    display:flex;
+    align-items:center;
+    background:none;
+  }
+  .logo svg{
+    display:block;
+    background:none;
+  }
+  .header-kicker{
+    justify-self:center;
+    color:#1FB6C1;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:30px;
+    letter-spacing:6px;
+    line-height:1;
+    white-space:nowrap;
+  }
+  .est{
+    justify-self:end;
+    color:#1FB6C1;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:18px;
+    letter-spacing:3px;
+    white-space:nowrap;
+  }
+
+  /* HERO: staircase headline + sub */
+  .hero{
+    position:absolute;
+    top:140px;
+    left:50px;
+    right:50px;
+    z-index:2;
+  }
+  .headline{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:200px;
+    line-height:0.98;
+    color:#F5EDD8;
+    margin:0;
+    letter-spacing:-1px;
+    padding-top:8px;
+  }
+  .headline .l1{
+    display:block;
+    padding-left:50px;
+  }
+  .headline .l2{
+    display:block;
+    padding-left:150px;
+    color:#1FB6C1;
+    font-style:italic;
+  }
+  .sub{
+    margin-top:18px;
+    color:#F5EDD8;
+    font-size:26px;
+    opacity:0.92;
+    max-width:760px;
+    line-height:1.4;
+    padding-left:50px;
+  }
+
+  /* Footer */
+  .footer{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:#0A1418;
+    color:#F5EDD8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 40px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:22px;
+    letter-spacing:2px;
+    z-index:2;
+  }
+  .footer .dot{ color:#1FB6C1; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+
+    <div class="photo"></div>
+    <div class="overlay"></div>
+
+    <div class="top">
+      <div class="logo">
+        <svg viewBox="0 0 240 100" width="144" height="60" overflow="visible" style="opacity: 0.95;">
+          <!-- chef hat -->
+          <path d="M 50 25 Q 40 10 55 8 Q 65 0 75 8 Q 90 5 88 22 Q 95 30 85 38 L 35 38 Q 25 30 32 22 Q 30 5 50 8 Z" fill="none" stroke="#F5EDD8" stroke-width="2.5"/>
+          <rect x="32" y="38" width="56" height="6" fill="#F5EDD8" opacity="0.9"/>
+          <!-- text -->
+          <text x="100" y="42" font-family="Inter, sans-serif" font-style="italic" font-size="14" font-weight="700" fill="#F5EDD8">FETHİYE</text>
+          <text x="100" y="62" font-family="Inter, sans-serif" font-style="italic" font-size="20" font-weight="800" fill="#F5EDD8" letter-spacing="1">PİLAVCISI</text>
+        </svg>
+      </div>
+      <div class="header-kicker">BUGÜN NEYLİ YİYORUZ?</div>
+      <div class="est">EST · FETHİYE</div>
+    </div>
+
+    <div class="hero">
+      <h1 class="headline">
+        <span class="l1">PİLAVIN</span>
+        <span class="l2">ADRESİ</span>
+      </h1>
+      <div class="sub">
+        Tavuk, ciğer, nohut — tabağında ne istersen.<br>
+        Tuzla, İnönü Bulvarı'nda buluşalım.
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>@FETHIYE.PILAVCISI</span>
+      <span class="dot">●</span>
+      <span>0507 111 76 10</span>
+      <span class="dot">●</span>
+      <span>TUZLA · FETHİYE</span>
+    </div>
+
+  </div>
+</body>
+</html>
