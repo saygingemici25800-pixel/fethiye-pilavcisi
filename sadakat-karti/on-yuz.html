@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Sadakat Kartı · Ön Yüz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== SHARED TOKENS (identical on both faces) ===== */
+  :root{
+    --cream:#FAF8F3; --ink:#1A1A1A; --cyan:#00B4C8;
+    --font-display:'Fraunces', serif;
+    --font-body:'DM Sans', system-ui, sans-serif;
+  }
+  *{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  html,body{ margin:0; padding:0; background:#d8d8d2; }
+  body{ font-family:var(--font-body); color:var(--ink); font-feature-settings:'ss01','liga'; }
+
+  /* ===== SHARED TYPE SYSTEM (identical on both faces) ===== */
+  .t-display{ font-family:var(--font-display); font-style:italic; font-weight:400;
+    font-optical-sizing:none; font-variation-settings:'opsz' 144,'wght' 400; letter-spacing:-0.01em; }
+  .t-display-roman{ font-family:var(--font-display); font-style:normal; font-weight:400;
+    font-optical-sizing:none; font-variation-settings:'opsz' 144,'wght' 400; letter-spacing:-0.01em; }
+  .t-sub{ font-family:var(--font-display); font-style:italic; font-weight:400;
+    font-optical-sizing:none; font-variation-settings:'opsz' 36,'wght' 400; }
+  .t-label{ font-family:var(--font-body); font-weight:500; text-transform:uppercase; letter-spacing:0.2em; }
+  .t-num{ font-family:var(--font-display); font-style:normal; font-weight:400;
+    font-optical-sizing:none; font-variation-settings:'opsz' 144,'wght' 400;
+    font-feature-settings:'tnum' 1,'lnum' 1; }
+  .t-body{ font-family:var(--font-body); font-weight:400; letter-spacing:0; }
+  .t-edge{ font-family:var(--font-body); font-weight:500; text-transform:uppercase; letter-spacing:0.3em; }
+
+  /* ===== SHARED LOGO LOCKUP (identical on both faces) ===== */
+  .logo{ display:flex; align-items:center; gap:13px; }
+  .logo .mark{ display:block; }
+  .logo .wm{ line-height:.92; }
+  .logo .wm .a{ font-family:var(--font-display); font-style:italic; font-weight:400;
+    font-variation-settings:'opsz' 36,'wght' 400; font-size:22px; opacity:.9; letter-spacing:.3px; }
+  .logo .wm .b{ font-family:var(--font-body); font-weight:700; font-size:24px; letter-spacing:3px; }
+
+  /* ===== LAYOUT — FRONT ===== */
+  .card{ position:relative; width:1004px; height:650px; background:var(--cream); color:var(--ink); overflow:hidden; padding:48px 52px; }
+  .trim{ position:absolute; inset:0; pointer-events:none; z-index:50; border:1.5px dashed var(--cyan); opacity:.55; }
+  .printing .trim{ display:none; }
+  @media print{ .trim{ display:none; } }
+
+  .top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .kicker{ font-size:16px; color:var(--ink); text-align:right; padding-top:12px; white-space:nowrap; }
+
+  .headline{ margin-top:26px; line-height:.9; text-align:center; }
+  .headline .l1{ font-size:118px; color:var(--ink); display:block; }
+  .headline .l2{ font-size:118px; color:var(--cyan); display:block; }
+
+  .frame{ position:absolute; left:52px; right:52px; bottom:48px; border:1.5px solid var(--ink); background:var(--cream); box-shadow:11px 11px 0 var(--cyan); padding:24px 28px 22px; }
+  .frame-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px; }
+  .frame-head .t{ font-size:15px; }
+  .frame-head .n{ font-family:var(--font-body); font-weight:500; font-size:14px; letter-spacing:1.5px; opacity:.55; }
+  .member{ display:flex; align-items:flex-end; gap:12px; margin-bottom:20px; }
+  .member .ml{ font-size:14px; color:var(--ink); white-space:nowrap; }
+  .member .mline{ flex:1; max-width:590px; height:0; border-bottom:1.5px solid rgba(26,26,26,0.30); margin-bottom:5px; }
+  .dots{ display:flex; align-items:center; gap:12px; }
+  .dot{ width:84px; height:84px; border-radius:50%; border:2px dashed var(--ink); display:flex; align-items:center; justify-content:center; font-size:30px; color:var(--ink); opacity:.85; }
+  .dot.reward{ border:none; background:var(--cyan); color:#fff; opacity:1; transform:rotate(-9deg); box-shadow:0 6px 14px rgba(0,180,200,.32); font-family:var(--font-body); font-size:40px; }
+  .frame-foot{ margin-top:16px; font-size:21px; opacity:.72; }
+
+  /* ===== PRINT / PDF — 91x61mm page (85x55mm trim + 3mm bleed her yön) ===== */
+  @page { size: 91mm 61mm; margin: 0; }
+  @media print {
+    html, body { width:91mm; height:61mm; overflow:hidden; background:var(--cream); }
+    body { display:flex; align-items:center; justify-content:center; }
+    .card { zoom:0.32; }   /* 1004px→85mm trim; flex centers it → 3mm bleed her yön */
+    .trim { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="trim"></div>
+
+  <div class="top">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 40 40" width="46" height="46" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="none" stroke="#1A1A1A" stroke-width="2.5"/>
+        <path d="M 12 22 Q 20 14 28 22" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M 14 26 L 26 26" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="20" cy="13" r="1.8" fill="#1A1A1A"/>
+      </svg>
+      <div class="wm">
+        <div class="a">Fethiye</div>
+        <div class="b">PİLAVCISI</div>
+      </div>
+    </div>
+    <div class="kicker t-label">★ MÜDAVİMLERE ÖZEL</div>
+  </div>
+
+  <div class="headline">
+    <div class="l1 t-display-roman">6 al.</div>
+    <div class="l2 t-display">7.si bizden.</div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-head">
+      <div class="t t-label">SADAKAT KARTI</div>
+      <div class="n">n°&nbsp;_______</div>
+    </div>
+    <div class="member">
+      <span class="ml t-label">MÜDAVİM</span>
+      <span class="mline"></span>
+    </div>
+    <div class="dots">
+      <div class="dot t-num">1</div>
+      <div class="dot t-num">2</div>
+      <div class="dot t-num">3</div>
+      <div class="dot t-num">4</div>
+      <div class="dot t-num">5</div>
+      <div class="dot t-num">6</div>
+      <div class="dot reward">★</div>
+    </div>
+    <div class="frame-foot t-sub">İstediğin 6 pilav üstünü ye — 7.si ikramımızdır.</div>
+  </div>
+</div>
+
+<script>
+  if (new URLSearchParams(location.search).has('print')) document.documentElement.classList.add('printing');
+</script>
+</body>
+</html>

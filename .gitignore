@@ -8,3 +8,4 @@ yarn-error.log*
 .env.local
 .cache/
 .tmp/
+.vercel

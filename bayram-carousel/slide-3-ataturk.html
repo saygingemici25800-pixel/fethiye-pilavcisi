@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, initial-scale=1.0">
+<title>Kurban Bayramı · Slide 3 · Atatürk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:#222; }
+  body{ display:flex; justify-content:center; align-items:center; min-height:100vh; }
+
+  .canvas{
+    width:1080px; height:1080px;
+    position:relative; overflow:hidden;
+    background:#FAF8F3;
+    color:#1A1A1A;
+    font-family:'DM Sans', sans-serif;
+  }
+
+  /* z1 — SAĞ eğik foto wedge; yüz görünür */
+  .photo-band{
+    position:absolute; inset:0; z-index:1; overflow:hidden;
+    clip-path: polygon(300px 0, 1080px 0, 1080px 1080px, 480px 1080px);
+  }
+  .photo-band img{
+    width:100%; height:100%;
+    object-fit:cover; object-position:25% 35%;
+    display:block;
+    filter:saturate(1.02) contrast(1.02);
+  }
+
+  /* z2 — cyan hairline (kağıdın eğik SAĞ kenarında görünür) */
+  .paper-edge{
+    position:absolute; inset:0; z-index:2;
+    clip-path: polygon(0 0, 440px 0, 620px 1080px, 0 1080px);
+    background:#00B4C8;
+    transform: translateX(2px);
+  }
+  /* z3 — cream kağıt katmanı, başlık üstünde */
+  .paper{
+    position:absolute; inset:0; z-index:3;
+    clip-path: polygon(0 0, 440px 0, 620px 1080px, 0 1080px);
+    background:#FAF8F3;
+  }
+
+  /* z6 — marka logosu (sol üst, cream alanda → cyan) */
+  .brand-logo{
+    position:absolute; top:60px; left:80px; z-index:6;
+    color:#00B4C8; opacity:0.85;
+  }
+  .brand-logo svg{ display:block; }
+
+  /* z4 — başlık SOLDA, sol yaslı, kağıdın üstünde */
+  .title{
+    position:absolute; left:90px; top:280px; z-index:4;
+    font-family:'Fraunces', serif;
+    font-size:104px; line-height:0.95; letter-spacing:-2px;
+  }
+  .title .l1{ display:block; color:#1A1A1A; font-weight:400; }
+  .title .l2{ display:block; color:#00B4C8; font-style:italic; font-weight:400; }
+
+  .desc{
+    position:absolute; left:96px; top:640px; z-index:4;
+    max-width:430px;
+    font-family:'Fraunces', serif; font-weight:400;
+    font-size:22px; line-height:1.5; color:#1A1A1A;
+  }
+
+  /* z5 — eyebrow (sağ üst, foto üstünde → cream renk, kontrast için) */
+  .eyebrow{
+    position:absolute; top:130px; right:90px; z-index:5;
+    text-align:right; line-height:1.7;
+  }
+  .eyebrow .num{
+    font-family:'Fraunces', serif; font-style:italic; font-size:16px;
+    letter-spacing:0.18em; color:#1A1A1A; opacity:0.85;
+  }
+  .eyebrow .tag{
+    font-family:'Fraunces', serif; font-style:italic; font-size:14px;
+    letter-spacing:0.22em; color:#1A1A1A; opacity:0.85;
+  }
+
+  /* z5 — footer (sol alt, cream zeminde → ink) */
+  .footer{
+    position:absolute; left:90px; bottom:70px; z-index:5;
+    font-family:'DM Sans', sans-serif; font-size:11px; font-weight:500;
+    letter-spacing:2px; line-height:1.9; color:#1A1A1A; opacity:0.5;
+  }
+  .footer .loc{ text-transform:uppercase; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+
+    <div class="photo-band">
+      <img src="photos/ataturk.jpg" alt="Atatürk">
+    </div>
+
+    <div class="paper-edge"></div>
+    <div class="paper"></div>
+
+    <div class="brand-logo">
+      <svg viewBox="28 0 188 70" height="32" overflow="visible">
+        <path d="M 50 25 Q 40 10 55 8 Q 65 0 75 8 Q 90 5 88 22 Q 95 30 85 38 L 35 38 Q 25 30 32 22 Q 30 5 50 8 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <rect x="32" y="38" width="56" height="6" fill="currentColor" opacity="0.9"/>
+        <text x="100" y="40" font-family="'DM Sans',sans-serif" font-style="italic" font-size="14" font-weight="700" fill="currentColor">FETHİYE</text>
+        <text x="100" y="60" font-family="'DM Sans',sans-serif" font-style="italic" font-size="20" font-weight="800" fill="currentColor" letter-spacing="1">PİLAVCISI</text>
+      </svg>
+    </div>
+
+    <h1 class="title">
+      <span class="l1">Bayram</span>
+      <span class="l1">Bizi</span>
+      <span class="l2">Bir Eder</span>
+    </h1>
+
+    <div class="desc">
+      O'nun mirasıyla<br>
+      bir sofra, bir vatan —<br>
+      bayram bizi bir eder.
+    </div>
+
+    <div class="eyebrow">
+      <div class="num">— III / IV —</div>
+      <div class="tag">— BİZ BİR SOFRADA TOPLANIRIZ —</div>
+    </div>
+
+    <div class="footer">
+      @fethiye.pilavcisi<br>
+      <span class="loc">TUZLA · FETHİYE</span>
+    </div>
+
+  </div>
+</body>
+</html>

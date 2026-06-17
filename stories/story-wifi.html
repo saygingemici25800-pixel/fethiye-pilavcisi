@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, initial-scale=1.0">
+<title>Çay & Wifi · Mekandan · Story</title>
+<style>
+  /* Local fonts (fonts.gstatic.com DNS sorunu → embed) */
+  @font-face{ font-family:'Fraunces'; src:url('fonts/fraunces.ttf') format('truetype'); font-weight:300 600; font-style:normal; }
+  @font-face{ font-family:'Fraunces'; src:url('fonts/fraunces-italic.ttf') format('truetype'); font-weight:300 600; font-style:italic; }
+  @font-face{ font-family:'DM Sans'; src:url('fonts/dmsans.ttf') format('truetype'); font-weight:400 700; font-style:normal; }
+  @font-face{ font-family:'DM Sans'; src:url('fonts/dmsans-italic.ttf') format('truetype'); font-weight:400 700; font-style:italic; }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:#0E3D43; }
+  body{ display:flex; justify-content:center; align-items:center; min-height:100vh; }
+
+  :root{
+    --cream:#FAF8F3;
+    --cyan:#00B4C8;
+    --petrol:#0E3D43;
+  }
+
+  .canvas{
+    width:1080px; height:1920px;
+    position:relative; overflow:hidden;
+    background:var(--petrol);
+    font-family:'DM Sans', sans-serif;
+  }
+
+  /* z0 — full-bleed foto (wifi tablosu kadrajda kalsın) */
+  .photo{ position:absolute; inset:0; z-index:0; }
+  .photo img{
+    width:100%; height:100%;
+    object-fit:cover; object-position:64% 38%;
+    display:block;
+    /* sıcak sarı tavan ışığını kıs, parlamayı dengele */
+    filter:brightness(0.9) saturate(0.88) contrast(1.02);
+  }
+
+  /* z1 — sağ üst sarı parlamayı söndüren lokal koyu petrol overlay */
+  .light-kill{
+    position:absolute; top:0; right:0; width:55%; height:38%; z-index:1;
+    background:radial-gradient(ellipse at top right,
+      rgba(14,61,67,0.72) 0%,
+      rgba(14,61,67,0.34) 42%,
+      transparent 72%);
+    pointer-events:none;
+  }
+  /* z1 — sıcak tonu nötrleyen hafif tam-ekran serin tint */
+  .cool-tint{
+    position:absolute; inset:0; z-index:1;
+    background:rgba(14,61,67,0.12);
+    mix-blend-mode:multiply;
+    pointer-events:none;
+  }
+
+  /* z2 — alt koyu petrol gradient (okunabilirlik) */
+  .scrim-bottom{
+    position:absolute; left:0; right:0; bottom:0; height:56%; z-index:2;
+    background:linear-gradient(to bottom,
+      rgba(14,61,67,0) 0%,
+      rgba(14,61,67,0.5) 44%,
+      rgba(14,61,67,0.92) 100%);
+  }
+  /* z2 — üstte logo/etiket okunması için hafif tül */
+  .scrim-top{
+    position:absolute; left:0; right:0; top:0; height:20%; z-index:2;
+    background:linear-gradient(to bottom, rgba(14,61,67,0.5) 0%, rgba(14,61,67,0) 100%);
+  }
+
+  /* z6 — marka logosu (sol üst, cream) */
+  .brand-logo{
+    position:absolute; top:78px; left:84px; z-index:6;
+    color:var(--cream);
+    filter:drop-shadow(0 2px 10px rgba(0,0,0,0.35));
+  }
+  .brand-logo svg{ display:block; }
+
+  /* z6 — sağ üst konum etiketi */
+  .place{
+    position:absolute; top:96px; right:84px; z-index:6;
+    font-family:'DM Sans', sans-serif; font-weight:500;
+    font-size:23px; letter-spacing:0.34em; text-transform:uppercase;
+    color:var(--cream); opacity:0.92;
+    text-shadow:0 2px 12px rgba(0,0,0,0.4);
+  }
+
+  /* z4 — alt blok (ferah dikey yerleşim) */
+  .block{
+    position:absolute; left:84px; right:84px; bottom:230px; z-index:4;
+  }
+  .kicker{
+    font-family:'DM Sans', sans-serif; font-weight:700;
+    font-size:26px; letter-spacing:0.42em; text-transform:uppercase;
+    color:var(--cyan); margin-bottom:30px;
+  }
+  .kicker .star{ font-size:22px; }
+  .headline{
+    font-family:'Fraunces', serif; font-weight:400; font-style:italic;
+    font-size:96px; line-height:1.12; letter-spacing:-1px;
+    color:var(--cream);
+  }
+  .headline .accent{ color:var(--cyan); }
+  .sub{
+    margin-top:40px;
+    font-family:'DM Sans', sans-serif; font-weight:400;
+    font-size:30px; line-height:1.35; letter-spacing:0.01em;
+    color:var(--cream); opacity:0.85;
+  }
+
+  /* z5 — alt CTA */
+  .cta{
+    position:absolute; left:0; right:0; bottom:64px; z-index:5;
+    text-align:center;
+    font-family:'DM Sans', sans-serif; font-weight:500;
+    font-size:24px; letter-spacing:0.28em; text-transform:uppercase;
+    color:var(--cream); opacity:0.6;
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+
+    <div class="photo">
+      <img src="photos/wifi-tablo.jpg" alt="Bize iki çay bir de wifi şifresi tablosu">
+    </div>
+
+    <div class="light-kill"></div>
+    <div class="cool-tint"></div>
+
+    <div class="scrim-top"></div>
+    <div class="scrim-bottom"></div>
+
+    <div class="brand-logo">
+      <svg viewBox="28 0 188 70" height="40" overflow="visible">
+        <path d="M 50 25 Q 40 10 55 8 Q 65 0 75 8 Q 90 5 88 22 Q 95 30 85 38 L 35 38 Q 25 30 32 22 Q 30 5 50 8 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <rect x="32" y="38" width="56" height="6" fill="currentColor" opacity="0.9"/>
+        <text x="100" y="40" font-family="'DM Sans',sans-serif" font-style="italic" font-size="14" font-weight="700" fill="currentColor">FETHİYE</text>
+        <text x="100" y="60" font-family="'DM Sans',sans-serif" font-style="italic" font-size="20" font-weight="800" fill="currentColor" letter-spacing="1">PİLAVCISI</text>
+      </svg>
+    </div>
+
+    <div class="place">FETHİYE · TUZLA</div>
+
+    <div class="block">
+      <div class="kicker"><span class="star">★</span>&nbsp; MEKANDAN</div>
+      <div class="headline">Çayımız da var,<br><span class="accent">wifi'miz</span> de.</div>
+      <div class="sub">Gelince ikisini de iste.</div>
+    </div>
+
+    <div class="cta">↑&nbsp; TUZLA · İNÖNÜ BLV.</div>
+
+  </div>
+</body>
+</html>

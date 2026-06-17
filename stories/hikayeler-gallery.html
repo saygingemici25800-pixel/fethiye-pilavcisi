@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Fethiye Pilavcısı · Instagram Hikayeleri</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    background: #0a0d10;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #F5EDD8;
+    min-height: 100vh;
+  }
+  * { box-sizing: border-box; }
+
+  .page {
+    max-width: 1400px; margin: 0 auto; padding: 48px 24px 80px;
+  }
+
+  .page-head {
+    display: flex; align-items: end; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap; margin-bottom: 36px;
+    padding-bottom: 24px; border-bottom: 1px solid rgba(245,237,216,0.12);
+  }
+  .page-head h1 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 48px;
+    letter-spacing: 1px; margin: 0 0 6px;
+  }
+  .page-head p { margin: 0; color: rgba(245,237,216,0.6); font-size: 15px; max-width: 520px; line-height: 1.5; }
+  .dl-all {
+    background: #1FB6C1; color: #0A1418;
+    border: 0; padding: 12px 18px; font-size: 14px; font-weight: 700;
+    border-radius: 4px; cursor: pointer; font-family: inherit;
+  }
+  .dl-all:hover { background: #44d4df; }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 36px;
+  }
+
+  .card {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .card-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .card-meta .num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #1FB6C1; line-height: 1; letter-spacing: 2px;
+  }
+  .card-meta .label {
+    font-size: 14px; color: rgba(245,237,216,0.55); text-transform: uppercase; letter-spacing: 2px;
+  }
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.5px; line-height: 1; margin: 0;
+  }
+  .card-why {
+    font-size: 13px; color: rgba(245,237,216,0.55); line-height: 1.5;
+  }
+
+  .stage {
+    width: 100%; aspect-ratio: 9 / 16;
+    position: relative; overflow: hidden;
+    background: #000;
+    box-shadow: 0 20px 50px -15px rgba(0,0,0,0.5);
+    border-radius: 8px;
+  }
+  .stage-inner {
+    width: 1080px; height: 1920px;
+    transform-origin: top left;
+    position: absolute; top: 0; left: 0;
+  }
+
+  .card-actions { display: flex; gap: 8px; }
+  .card-actions button {
+    flex: 1;
+    background: rgba(245,237,216,0.08);
+    color: #F5EDD8;
+    border: 1px solid rgba(245,237,216,0.18);
+    padding: 10px 12px; font-size: 13px; font-weight: 600;
+    border-radius: 4px; cursor: pointer; font-family: inherit;
+    transition: all 120ms ease;
+  }
+  .card-actions button:hover { background: #1FB6C1; color: #0A1418; border-color: #1FB6C1; }
+  .card-actions button.primary { background: #1FB6C1; color: #0A1418; border-color: #1FB6C1; }
+  .card-actions button.primary:hover { background: #44d4df; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/html-to-image@1.11.11/dist/html-to-image.js"></script>
+</head>
+<body>
+
+<div class="page">
+  <div class="page-head">
+    <div>
+      <h1>Instagram Hikayeleri · 6 adet</h1>
+      <p>9:16 (1080×1920) format · Her hikaye altındaki butondan PNG olarak indirip Instagram'a yükle.</p>
+    </div>
+    <button class="dl-all" id="dl-all">⬇ HEPSİNİ İNDİR (6 PNG)</button>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script type="text/babel">
+// ====== BRAND ======
+const BRAND = {
+  cyan: '#1FB6C1', cyanDark: '#0E7A85', deep: '#0E3A45', ink: '#0A1418',
+  cream: '#F5EDD8', paper: '#FBF5E4', tile: '#D9442C', olive: '#7A8B3F',
+  saffron: '#E8A23A', white: '#FFFFFF',
+};
+
+const Logo = ({ color = BRAND.cyan, size = 'sm' }) => {
+  const fz = size === 'lg' ? 36 : size === 'md' ? 22 : 14;
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, color }}>
+      <svg viewBox="0 0 40 40" width={fz * 1.6} height={fz * 1.6}>
+        <circle cx="20" cy="20" r="18" fill="none" stroke={color} strokeWidth="2.5"/>
+        <path d="M 12 22 Q 20 14 28 22" stroke={color} strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+        <path d="M 14 26 L 26 26" stroke={color} strokeWidth="2.5" strokeLinecap="round"/>
+        <circle cx="20" cy="13" r="1.8" fill={color}/>
+      </svg>
+      <div style={{ lineHeight: 0.95, fontFamily: '"Bebas Neue", sans-serif', letterSpacing: 1 }}>
+        <div style={{ fontSize: fz * 0.55, fontStyle: 'italic', opacity: 0.85 }}>Fethiye</div>
+        <div style={{ fontSize: fz, fontWeight: 700 }}>PİLAVCISI</div>
+      </div>
+    </div>
+  );
+};
+
+const Story = ({ children, bg }) => (
+  <div style={{
+    width: 1080, height: 1920, position: 'relative', overflow: 'hidden',
+    background: bg, fontFamily: '"Inter", system-ui, sans-serif',
+  }}>
+    {children}
+  </div>
+);
+
+// Reusable story chrome — top brand bar
+const StoryHeader = ({ color = BRAND.cream }) => (
+  <div style={{ position: 'absolute', top: 60, left: 60, right: 60, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Logo color={color} size="md"/>
+    <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 22, letterSpacing: 3, color, opacity: 0.7 }}>FETHİYE · TUZLA</div>
+  </div>
+);
+
+// CTA pill at bottom (mimics story sticker / swipe-up affordance)
+const StoryCTA = ({ children, bg = BRAND.cyan, color = BRAND.ink }) => (
+  <div style={{
+    position: 'absolute', bottom: 110, left: 60, right: 60,
+    padding: '32px 36px', background: bg, color,
+    fontFamily: '"Bebas Neue", sans-serif', fontSize: 48, letterSpacing: 2,
+    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
+    borderRadius: 12,
+  }}>{children}</div>
+);
+
+// ============================================================
+// STORY 1 — ÇARPICI / DAVET (hero)
+// ============================================================
+const Story1 = () => (
+  <Story bg={BRAND.deep}>
+    {/* big cyan ring decor */}
+    <div style={{
+      position: 'absolute', top: -200, right: -200, width: 800, height: 800,
+      border: `60px solid ${BRAND.cyan}`, opacity: 0.18, borderRadius: '50%',
+    }}/>
+    <div style={{
+      position: 'absolute', bottom: -300, left: -200, width: 600, height: 600,
+      background: BRAND.tile, opacity: 0.18, borderRadius: '50%',
+    }}/>
+
+    <StoryHeader color={BRAND.cream}/>
+
+    {/* time stamp top right (story sticker feel) */}
+    <div style={{
+      position: 'absolute', top: 200, right: 60,
+      padding: '10px 18px', background: BRAND.cream, color: BRAND.ink,
+      fontFamily: '"Bebas Neue", sans-serif', fontSize: 24, letterSpacing: 2,
+      transform: 'rotate(4deg)', borderRadius: 4,
+    }}>BUGÜN · 12:00 — 21:00</div>
+
+    {/* main hero text */}
+    <div style={{ position: 'absolute', top: 400, left: 60, right: 60 }}>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 34, letterSpacing: 6, color: BRAND.cyan, marginBottom: 24 }}>
+        ★ BUGÜN TEZGÂHTA
+      </div>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 320, lineHeight: 1.0, color: BRAND.cream, letterSpacing: -4 }}>
+        PİLAV<br/>
+        <span style={{ color: BRAND.cyan, fontStyle: 'italic' }}>günü.</span>
+      </div>
+      <div style={{ fontSize: 32, color: BRAND.cream, opacity: 0.85, marginTop: 36, maxWidth: 800, lineHeight: 1.35 }}>
+        Tavuk · ciğer · nohut. Tabağında ne istersen.
+      </div>
+    </div>
+
+    {/* CTA */}
+    <StoryCTA>📍 TUZLA · İNÖNÜ BLV. 143/A</StoryCTA>
+
+    {/* swipe-up affordance */}
+    <div style={{ position: 'absolute', bottom: 50, left: 0, right: 0, textAlign: 'center', color: BRAND.cream, opacity: 0.6, fontSize: 22, letterSpacing: 4, fontFamily: '"Bebas Neue", sans-serif' }}>
+      ↑ YOL TARİFİ
+    </div>
+  </Story>
+);
+
+// ============================================================
+// STORY 2 — SÖZ / DÜRÜST
+// ============================================================
+const Story2 = () => (
+  <Story bg={BRAND.paper}>
+    <StoryHeader color={BRAND.ink}/>
+
+    {/* tilted stamp */}
+    <div style={{
+      position: 'absolute', top: 220, left: 60,
+      padding: '18px 32px', border: `5px solid ${BRAND.tile}`,
+      color: BRAND.tile, transform: 'rotate(-4deg)',
+      fontFamily: '"Bebas Neue", sans-serif', fontSize: 44, letterSpacing: 6,
+    }}>★ SÖZ ★</div>
+
+    <div style={{ position: 'absolute', top: 380, left: 60, right: 60 }}>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 180, lineHeight: 0.88, color: BRAND.ink, letterSpacing: -2 }}>
+        DÜNDEN<br/>
+        <span style={{ color: BRAND.cyanDark, fontStyle: 'italic' }}>kalan</span><br/>
+        PİLAV YOK.
+      </div>
+    </div>
+
+    {/* checklist */}
+    <div style={{ position: 'absolute', bottom: 340, left: 60, right: 60, display: 'flex', flexDirection: 'column', gap: 18 }}>
+      {[
+        ['HER GÜN', 'TAZE PİŞER'],
+        ['HER GÜN', 'YENİDEN HAZIRLANIR'],
+        ['SAAT 21\'DE', 'KALAN ATILIR'],
+      ].map(([h, d], i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 18, background: BRAND.white, padding: '20px 26px', border: `3px solid ${BRAND.ink}` }}>
+          <div style={{ width: 46, height: 46, borderRadius: 23, background: BRAND.olive, color: 'white', display: 'grid', placeItems: 'center', fontSize: 26, fontWeight: 800 }}>✓</div>
+          <div>
+            <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 30, letterSpacing: 2, color: BRAND.olive }}>{h}</div>
+            <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 38, color: BRAND.ink, lineHeight: 0.95 }}>{d}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* bottom signature */}
+    <div style={{ position: 'absolute', bottom: 110, left: 60, right: 60, textAlign: 'center', fontFamily: '"Bebas Neue", sans-serif', fontSize: 28, letterSpacing: 4, color: BRAND.ink, opacity: 0.7 }}>
+      — FETHİYE PİLAVCISI
+    </div>
+  </Story>
+);
+
+// ============================================================
+// STORY 3 — MÜŞTERİ YORUMU
+// ============================================================
+const Story3 = () => (
+  <Story bg={BRAND.cream}>
+    <StoryHeader color={BRAND.ink}/>
+
+    {/* poll-sticker style header */}
+    <div style={{
+      position: 'absolute', top: 220, left: 60,
+      padding: '14px 24px', background: BRAND.ink, color: BRAND.cyan,
+      fontFamily: '"Bebas Neue", sans-serif', fontSize: 30, letterSpacing: 4,
+    }}>BUGÜNÜN YORUMU</div>
+
+    {/* massive quote mark */}
+    <div style={{
+      position: 'absolute', top: 240, right: 40,
+      fontFamily: '"Bebas Neue", sans-serif', fontSize: 480, lineHeight: 0.6,
+      color: BRAND.tile, opacity: 0.18,
+    }}>"</div>
+
+    {/* the quote */}
+    <div style={{ position: 'absolute', top: 420, left: 60, right: 60 }}>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 152, lineHeight: 0.92, color: BRAND.ink, letterSpacing: -1 }}>
+        FETHİYE'DE<br/>
+        <span style={{ color: BRAND.tile, fontStyle: 'italic' }}>açık ara</span><br/>
+        EN İYİ<br/>
+        PİLAVCI.
+      </div>
+    </div>
+
+    {/* attribution card */}
+    <div style={{
+      position: 'absolute', bottom: 280, left: 60, right: 60,
+      padding: '28px 32px', background: BRAND.white,
+      border: `3px solid ${BRAND.ink}`, boxShadow: `14px 14px 0 ${BRAND.cyan}`,
+      display: 'flex', alignItems: 'center', gap: 20,
+    }}>
+      <div style={{ width: 72, height: 72, borderRadius: 36, background: BRAND.cyanDark, color: 'white', display: 'grid', placeItems: 'center', fontWeight: 800, fontSize: 30 }}>AK</div>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontWeight: 700, fontSize: 28, color: BRAND.ink }}>Ayşegül Karabiber</div>
+        <div style={{ fontSize: 20, color: BRAND.saffron, letterSpacing: 4, marginTop: 4 }}>★★★★★</div>
+      </div>
+      <div style={{ fontSize: 18, color: BRAND.ink, opacity: 0.55, textAlign: 'right', lineHeight: 1.3 }}>Yerel Rehber<br/>Google</div>
+    </div>
+
+    <div style={{ position: 'absolute', bottom: 130, left: 0, right: 0, textAlign: 'center', fontFamily: '"Bebas Neue", sans-serif', fontSize: 26, letterSpacing: 4, color: BRAND.ink, opacity: 0.6 }}>
+      ★ TEŞEKKÜRLER ★
+    </div>
+  </Story>
+);
+
+// ============================================================
+// STORY 4 — MUTFAK / BTS
+// ============================================================
+const Story4 = () => (
+  <Story bg={BRAND.ink}>
+    {/* pattern */}
+    <div style={{
+      position: 'absolute', inset: 0,
+      backgroundImage: `radial-gradient(circle at 20% 30%, rgba(31,182,193,0.15), transparent 40%), radial-gradient(circle at 80% 70%, rgba(232,162,58,0.1), transparent 40%)`,
+    }}/>
+
+    <StoryHeader color={BRAND.cream}/>
+
+    {/* big clock */}
+    <div style={{ position: 'absolute', top: 260, left: 60 }}>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 32, letterSpacing: 8, color: BRAND.saffron }}>★ ŞU AN</div>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 480, lineHeight: 0.85, color: BRAND.cream, letterSpacing: -8, marginTop: 12 }}>
+        08:30
+      </div>
+    </div>
+
+    {/* description */}
+    <div style={{ position: 'absolute', top: 920, left: 60, right: 60 }}>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 110, lineHeight: 0.88, color: BRAND.cyan, fontStyle: 'italic', letterSpacing: -1 }}>
+        pirinç<br/>ayıklanıyor.
+      </div>
+      <div style={{ fontSize: 28, color: BRAND.cream, opacity: 0.75, marginTop: 28, maxWidth: 800, lineHeight: 1.4 }}>
+        Tabağınız 12:00'da hazır — biz 08:30'da başlıyoruz. <br/>Her gün. Her sabah. İstisnasız.
+      </div>
+    </div>
+
+    {/* mini timeline */}
+    <div style={{ position: 'absolute', bottom: 250, left: 60, right: 60 }}>
+      <div style={{ height: 3, background: 'rgba(245,237,216,0.2)', position: 'relative' }}>
+        <div style={{ position: 'absolute', height: 3, background: BRAND.cyan, left: 0, width: '20%' }}/>
+        {[0, 0.25, 0.5, 0.75, 1].map((p, i) => (
+          <div key={i} style={{ position: 'absolute', left: `${p * 100}%`, top: -9, width: 22, height: 22, borderRadius: 11, background: i === 0 ? BRAND.cyan : 'rgba(245,237,216,0.3)', transform: 'translateX(-50%)', border: i === 0 ? `4px solid ${BRAND.cream}` : 'none' }}/>
+        ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 18, color: BRAND.cream, fontFamily: '"Bebas Neue", sans-serif', fontSize: 24, letterSpacing: 2, opacity: 0.7 }}>
+        <span style={{ color: BRAND.cyan, opacity: 1 }}>08:30</span><span>09:30</span><span>10:30</span><span>11:30</span><span>12:00</span>
+      </div>
+    </div>
+
+    <div style={{ position: 'absolute', bottom: 110, left: 0, right: 0, textAlign: 'center', color: BRAND.cream, opacity: 0.7, fontSize: 26, letterSpacing: 4, fontFamily: '"Bebas Neue", sans-serif' }}>
+      ↑ MUTFAĞA GÖZ AT
+    </div>
+  </Story>
+);
+
+// ============================================================
+// STORY 5 — SADAKAT KARTI
+// ============================================================
+const Story5 = () => (
+  <Story bg={BRAND.cream}>
+    <StoryHeader color={BRAND.ink}/>
+
+    <div style={{ position: 'absolute', top: 240, left: 60, right: 60 }}>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 32, letterSpacing: 6, color: BRAND.tile }}>★ MÜDAVİMLER İÇİN</div>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 240, lineHeight: 0.82, color: BRAND.ink, letterSpacing: -4, marginTop: 18 }}>
+        10 PİLAV.<br/>
+        <span style={{ color: BRAND.tile, fontStyle: 'italic' }}>1 bedava.</span>
+      </div>
+    </div>
+
+    {/* the stamp card */}
+    <div style={{
+      position: 'absolute', top: 1020, left: 60, right: 60,
+      background: BRAND.white, border: `4px solid ${BRAND.ink}`,
+      padding: '36px 32px',
+      boxShadow: `16px 16px 0 ${BRAND.tile}`,
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 24 }}>
+        <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 32, letterSpacing: 3, color: BRAND.ink }}>SADAKAT KARTI</div>
+        <div style={{ fontSize: 18, color: BRAND.ink, opacity: 0.5 }}>nº 00472</div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16 }}>
+        {Array.from({ length: 10 }).map((_, i) => {
+          const filled = i === 0; // first stamp gifted
+          return (
+            <div key={i} style={{
+              aspectRatio: '1', borderRadius: '50%',
+              border: `3px dashed ${BRAND.ink}`,
+              display: 'grid', placeItems: 'center',
+              background: filled ? BRAND.tile : 'transparent',
+              color: filled ? 'white' : BRAND.ink,
+              fontFamily: '"Bebas Neue", sans-serif', fontSize: 44,
+              transform: filled ? 'rotate(-12deg)' : 'none',
+            }}>
+              {filled ? '★' : i + 1}
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ marginTop: 26, fontSize: 22, color: BRAND.ink, opacity: 0.7, textAlign: 'center' }}>
+        İlk damgan bizden — kasada "kart aç" de, başla.
+      </div>
+    </div>
+
+    <div style={{ position: 'absolute', bottom: 110, left: 0, right: 0, textAlign: 'center', fontFamily: '"Bebas Neue", sans-serif', fontSize: 28, letterSpacing: 4, color: BRAND.ink, opacity: 0.7 }}>
+      — APP YOK, KART VAR
+    </div>
+  </Story>
+);
+
+// ============================================================
+// STORY 6 — MENÜ / BİLGİLENDİRİCİ
+// ============================================================
+const Story6 = () => (
+  <Story bg={BRAND.cream}>
+    {/* big TILE bar at top */}
+    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 280, background: BRAND.tile, padding: '60px 60px 0', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Logo color={BRAND.cream} size="md"/>
+        <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 22, letterSpacing: 3, color: BRAND.cream, opacity: 0.85 }}>BUGÜN TEZGÂHTA</div>
+      </div>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 180, lineHeight: 0.85, color: BRAND.cream, letterSpacing: -2, marginBottom: -20 }}>
+        MENÜ.
+      </div>
+    </div>
+
+    {/* menu list */}
+    <div style={{ position: 'absolute', top: 360, left: 60, right: 60, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      {[
+        ['NOHUTLU PİLAV', '60', null],
+        ['TAVUK PİLAV', '120', 'EN SEVİLEN'],
+        ['CİĞER PİLAV', '140', null],
+        ['ETLİ PİLAV', '160', null],
+        ['AYRAN', '15', null],
+        ['TURŞU + SOĞAN', '10', null],
+      ].map(([name, price, badge], i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 24, borderBottom: `2px dashed rgba(10,20,24,0.2)`, paddingBottom: 12 }}>
+          <div style={{ flex: 1, display: 'flex', alignItems: 'baseline', gap: 16 }}>
+            <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 60, color: BRAND.ink, letterSpacing: 1, lineHeight: 1 }}>{name}</div>
+            {badge && (
+              <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 18, letterSpacing: 2, color: BRAND.cream, background: BRAND.olive, padding: '4px 10px' }}>★ {badge}</div>
+            )}
+          </div>
+          <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 60, color: BRAND.cyanDark, lineHeight: 1, letterSpacing: 1 }}>{price}<span style={{ fontSize: 36 }}>₺</span></div>
+        </div>
+      ))}
+    </div>
+
+    {/* bottom note */}
+    <div style={{ position: 'absolute', bottom: 220, left: 60, right: 60, padding: '24px 28px', background: BRAND.ink, color: BRAND.cream, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: 30, letterSpacing: 3, color: BRAND.cyan }}>PAKET</div>
+      <div style={{ fontSize: 22, opacity: 0.85, textAlign: 'right' }}>0507 111 76 10<br/><span style={{ fontSize: 16, opacity: 0.7 }}>her gün 11:30 — 21:00</span></div>
+    </div>
+
+    <div style={{ position: 'absolute', bottom: 90, left: 0, right: 0, textAlign: 'center', fontFamily: '"Bebas Neue", sans-serif', fontSize: 26, letterSpacing: 4, color: BRAND.ink, opacity: 0.6 }}>
+      TUZLA · İNÖNÜ BLV. 143/A
+    </div>
+  </Story>
+);
+
+// ============================================================
+// GALLERY MOUNTING
+// ============================================================
+const STORIES = [
+  { id: 'davet',   num: '01', label: 'Çarpıcı / Davet',  title: 'BUGÜN PİLAV GÜNÜ', why: 'Tek karede saat ve mekân. Dikkat yakalar, yön verir.', Comp: Story1 },
+  { id: 'soz',     num: '02', label: 'Dürüst / Söz',     title: 'DÜNDEN KALAN PİLAV YOK', why: '"Yapmıyoruz" listesi — söz vererek güven kurar.', Comp: Story2 },
+  { id: 'yorum',   num: '03', label: 'Sosyal Kanıt',     title: 'BUGÜNÜN YORUMU', why: 'Tek müşteri sözünü dev gibi büyütür. Markaya 3. ağız konuşturur.', Comp: Story3 },
+  { id: 'mutfak',  num: '04', label: 'Behind-the-Scenes', title: 'ŞU AN 08:30', why: 'Sabah saatini canlı yayın gibi paylaşır. "Tazeyiz" demeden gösterir.', Comp: Story4 },
+  { id: 'sadakat', num: '05', label: 'Sadakat Kartı',    title: '10 PİLAV / 1 BEDAVA', why: 'Görsel ilerleme + sıfır sürtünme. Yeni müşteriyi müdaviye çağırır.', Comp: Story5 },
+  { id: 'menu',    num: '06', label: 'Bilgilendirici / Menü', title: 'BUGÜN TEZGÂHTA', why: 'Fiyat şeffaflığı. Karar verdirir, kapıdan çevirmez.', Comp: Story6 },
+];
+
+const App = () => {
+  const refs = React.useRef({});
+  const [downloading, setDownloading] = React.useState(null);
+
+  const downloadOne = async (id) => {
+    setDownloading(id);
+    const target = refs.current[id];
+    const inner = target.parentElement;
+    const prevTransform = inner.style.transform;
+    inner.style.transform = 'scale(1)';
+    await document.fonts.ready;
+    await new Promise(r => setTimeout(r, 100));
+    try {
+      const dataUrl = await htmlToImage.toPng(target, {
+        width: 1080, height: 1920, pixelRatio: 2, cacheBust: true,
+      });
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `fethiye-hikaye-${id}.png`;
+      a.click();
+    } catch (e) {
+      console.error(e);
+      alert('İndirme hatası: ' + e.message);
+    } finally {
+      inner.style.transform = prevTransform;
+      setDownloading(null);
+    }
+  };
+
+  const downloadAll = async () => {
+    for (const s of STORIES) {
+      await downloadOne(s.id);
+      await new Promise(r => setTimeout(r, 400));
+    }
+  };
+
+  React.useEffect(() => {
+    document.getElementById('dl-all').addEventListener('click', downloadAll);
+    const rescale = () => {
+      Object.entries(refs.current).forEach(([id, el]) => {
+        if (!el) return;
+        const stage = el.parentElement.parentElement;
+        const w = stage.getBoundingClientRect().width;
+        el.parentElement.style.transform = `scale(${w / 1080})`;
+        stage.style.height = `${(w / 9) * 16}px`;
+      });
+    };
+    window.addEventListener('resize', rescale);
+    setTimeout(rescale, 100);
+  }, []);
+
+  return (
+    <>
+      {STORIES.map((s) => (
+        <div key={s.id} className="card">
+          <div className="card-meta">
+            <span className="num">{s.num}</span>
+            <span className="label">{s.label}</span>
+          </div>
+          <h3 className="card-title">{s.title}</h3>
+          <div className="stage">
+            <div className="stage-inner">
+              <div ref={(el) => refs.current[s.id] = el}>
+                <s.Comp />
+              </div>
+            </div>
+          </div>
+          <div className="card-why">{s.why}</div>
+          <div className="card-actions">
+            <button className="primary" onClick={() => downloadOne(s.id)} disabled={downloading === s.id}>
+              {downloading === s.id ? 'İndiriliyor…' : '⬇ PNG İndir'}
+            </button>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
+
+// ?only=<id> → render ONE story full-bleed at 1080x1920 (for Chrome-headless PNG export).
+// No param → normal interactive gallery.
+const __only = new URLSearchParams(location.search).get('only');
+const __byId = Object.fromEntries(STORIES.map((s) => [s.id, s.Comp]));
+if (__only && __byId[__only]) {
+  const Comp = __byId[__only];
+  document.documentElement.style.background = '#000';
+  document.body.style.margin = '0';
+  document.body.innerHTML = '';
+  const host = document.createElement('div');
+  host.id = 'only-root';
+  host.style.cssText = 'width:1080px;height:1920px;overflow:hidden;position:absolute;top:0;left:0;';
+  document.body.appendChild(host);
+  ReactDOM.createRoot(host).render(<Comp />);
+} else {
+  ReactDOM.createRoot(document.getElementById('gallery')).render(<App />);
+}
+</script>
+
+</body>
+</html>

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#FAF8F3">
+<meta name="color-scheme" content="light dark">
 <title>Fethiye Pilavcısı · Menü</title>
 <meta name="description" content="Fethiye Pilavcısı menü — tavuklu pilav, kuru fasulye, kavurma. Tuzla, İnönü Bulvarı No: 143/A.">
 <meta property="og:title" content="Fethiye Pilavcısı · Menü">
@@ -12,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <style>
   :root{
     --bg:#FAF8F3;
@@ -27,7 +29,21 @@
   }
 
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light dark;}
+  :root{ color-scheme:light dark; }
+
+  /* Telefonun karanlık/zorunlu-koyu modu siteyi ters çevirmesin:
+     kendi koyu-modumuzu tanımlayınca tarayıcı otomatik karartmadan vazgeçer,
+     biz de her durumda AÇIK paleti dayatıyoruz. */
+  @media (prefers-color-scheme: dark){
+    html, body{ background:#EFE9DC; color:#1A1A1A; }
+    .frame{ background:#FAF8F3; }
+    header.bar{ background:#FAF8F3; }
+    .item .shot{ background:#F0EADA; }
+    .size-opt{ background:none; }
+    .size-opt.active{ background:rgba(0,180,200,0.05); }
+    img, .item .shot img{ filter:none; }
+  }
   body{
     background:#EFE9DC;
     color:var(--ink);
@@ -154,74 +170,59 @@
   /* MENU CARDS */
   .menu{ padding:0 22px; }
   .item{
-    padding:34px 6px;
+    padding:40px 4px;
     border-bottom:1px solid var(--hair);
   }
   .item:last-child{ border-bottom:0; }
 
-  .portions{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:10px;
-    margin-top:22px;
-  }
-  .portion{
-    cursor:pointer;
-    text-align:center;
-    border:0;
-    background:none;
-    padding:0;
-    font:inherit;
-    color:inherit;
-  }
-  .portion .thumb{
-    aspect-ratio:1/1;
-    background:#F0EADA;
-    border-radius:2px;
-    overflow:hidden;
+  /* HERO PHOTO (1 Porsiyon) */
+  .item .shot{
     position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:all .25s ease;
-    opacity:0.55;
-    border:1px solid transparent;
+    width:100%;
+    aspect-ratio:4 / 3;
+    border-radius:16px;
+    overflow:hidden;
+    background:#F0EADA;
+    box-shadow:0 22px 44px -26px rgba(26,26,26,0.5), 0 3px 10px -6px rgba(26,26,26,0.18);
   }
-  .portion .thumb img{
+  .item .shot img{
     width:100%;
     height:100%;
     object-fit:cover;
     display:block;
+    transition:transform 1s cubic-bezier(.2,.7,.2,1);
   }
-  .portion .thumb svg{
-    width:78%;
-    height:78%;
+  @media (hover:hover){
+    .item:hover .shot img{ transform:scale(1.05); }
   }
-  .portion.active .thumb{
-    opacity:1;
-    border:2px solid var(--cyan);
-    box-shadow:0 1px 12px rgba(0,180,200,0.06);
-  }
-  .portion .size{
-    margin-top:10px;
+  .item .shot .badge{
+    position:absolute;
+    top:14px;
+    right:14px;
     font-family:var(--sans);
-    font-size:10px;
-    letter-spacing:1.8px;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:1.3px;
     text-transform:uppercase;
-    font-weight:500;
-    color:var(--ink-mute);
-    transition:color .25s ease;
+    color:var(--ink);
+    background:rgba(250,248,243,0.88);
+    -webkit-backdrop-filter:blur(6px) saturate(1.2);
+    backdrop-filter:blur(6px) saturate(1.2);
+    padding:6px 11px;
+    border-radius:999px;
+    line-height:1;
+    box-shadow:0 2px 10px rgba(26,26,26,0.12);
+    pointer-events:none;
   }
-  .portion.active .size{
-    color:var(--cyan);
-  }
+
+  .item .body{ padding-top:24px; }
 
   .name-tr{
     font-family:var(--serif);
-    font-size:22px;
+    font-size:26px;
     font-weight:400;
-    line-height:1.15;
-    letter-spacing:-0.01em;
+    line-height:1.12;
+    letter-spacing:-0.015em;
     color:var(--ink);
   }
   .name-en{
@@ -230,40 +231,78 @@
     font-weight:300;
     font-size:13px;
     color:var(--ink-mute);
-    margin-top:5px;
+    margin-top:6px;
     letter-spacing:0.01em;
   }
+  .desc{
+    margin-top:14px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:15.5px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    max-width:42ch;
+  }
 
-  .prices{
+  /* SIZE + PRICE SELECTOR */
+  .sizes{
     display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:10px;
-    margin-top:20px;
+    grid-template-columns:0.82fr 1fr 1.22fr;
+    gap:9px;
+    margin-top:26px;
     align-items:end;
   }
-  .price{
-    text-align:center;
+  .size-opt{
+    cursor:default;
+    border:1.5px solid rgba(26,26,26,0.24);
+    background:none;
+    border-radius:14px;
+    padding:13px 6px 14px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:7px;
+    font:inherit;
+    color:inherit;
+  }
+  .size-opt .size-lbl{
+    font-family:var(--sans);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:1.8px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .size-opt .size-price{
     font-family:var(--serif);
-    font-weight:300;
-    color:var(--ink);
-    opacity:0.42;
-    transition:opacity .25s ease, font-size .25s ease;
-    font-size:18px;
+    font-weight:400;
+    font-size:20px;
     line-height:1;
     letter-spacing:-0.02em;
-  }
-  .price .currency{
-    font-size:0.55em;
-    margin-right:2px;
-    vertical-align:0.18em;
-    opacity:0.7;
-    font-weight:400;
-  }
-  .price.active{
-    opacity:1;
-    font-size:30px;
     color:var(--ink);
   }
+  .size-opt .size-price .currency{
+    font-size:0.52em;
+    margin-right:1px;
+    vertical-align:0.2em;
+    opacity:0.6;
+    font-weight:400;
+  }
+  /* Porsiyon büyüklüğüne göre kademeli ölçek: AZ küçük → 1.5P büyük */
+  .size-opt[data-idx="0"]{ padding:10px 5px 11px; border-radius:11px; }
+  .size-opt[data-idx="0"] .size-lbl{ font-size:9.5px; letter-spacing:1.4px; }
+  .size-opt[data-idx="0"] .size-price{ font-size:18px; }
+  .size-opt[data-idx="2"]{ padding:18px 6px 19px; border-radius:17px; }
+  .size-opt[data-idx="2"] .size-lbl{ font-size:11px; letter-spacing:2.1px; }
+  .size-opt[data-idx="2"] .size-price{ font-size:25px; }
+  .size-opt.active{
+    border-color:var(--cyan);
+    background:rgba(0,180,200,0.06);
+    box-shadow:0 8px 22px -12px rgba(0,180,200,0.6);
+  }
+  .size-opt.active .size-lbl{ color:var(--cyan); }
+  .size-opt.active .size-price{ color:var(--cyan); }
 
   /* DRINKS */
   .drinks{
@@ -316,6 +355,76 @@
     opacity:0.6;
   }
 
+  /* STORY */
+  .story{
+    padding:30px 30px 6px;
+    max-width:430px;
+    margin:0 auto;
+    position:relative;
+    overflow:hidden;
+  }
+  .story > *{ position:relative; z-index:2; }
+  .story::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:rgba(246,240,225,.45);
+    z-index:1;
+    pointer-events:none;
+  }
+  .story .mv3d-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    opacity:.14;
+    pointer-events:none;
+    filter:saturate(.75) contrast(.92);
+    background:transparent;
+    --poster-color:transparent;
+  }
+  .story .lead{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:400;
+    font-size:21px;
+    line-height:1.4;
+    color:var(--ink);
+    letter-spacing:-0.005em;
+    margin-bottom:18px;
+  }
+  .story p{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:400;
+    line-height:1.72;
+    color:var(--ink-soft);
+    margin-bottom:15px;
+  }
+  .story strong{ font-weight:500; color:var(--ink); }
+  .story .sign{
+    margin-top:24px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .story .sign-name{
+    font-family:var(--serif);
+    font-size:21px;
+    font-weight:400;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .story .sign-role{
+    font-family:var(--sans);
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    color:var(--cyan);
+  }
+
   /* FOOTER */
   footer.foot{
     padding:60px 28px 48px;
@@ -355,8 +464,8 @@
   /* small responsive tweaks */
   @media (max-width: 360px){
     .hero h1{ font-size:46px; }
-    .name-tr{ font-size:20px; }
-    .price.active{ font-size:26px; }
+    .name-tr{ font-size:23px; }
+    .size-opt[data-idx="2"] .size-price{ font-size:22px; }
     .foot .phone{ font-size:32px; }
   }
 
@@ -364,12 +473,15 @@
     body{ background:#fff; }
     .frame{ max-width:none; }
     header.bar{ position:static; }
-    .portion .thumb{ opacity:1 !important; border-color:#000 !important; }
-    .price{ opacity:1 !important; font-size:14px !important; }
-    .price.active{ font-size:18px !important; font-weight:500 !important; }
+    .item{ break-inside:avoid; }
+    .item .shot{ box-shadow:none !important; }
+    .size-opt{ break-inside:avoid; }
+    .size-opt.active{ background:none !important; border-color:#000 !important; }
+    .size-opt.active .size-lbl{ color:#000 !important; }
+    .size-opt.active .size-price{ font-weight:500 !important; }
     .foot .phone:hover{ opacity:1; }
     a{ color:#000; }
-    .kicker, .foot .dot, .portion.active .size{ color:#000 !important; }
+    .kicker, .foot .dot{ color:#000 !important; }
   }
 </style>
 </head>
@@ -403,6 +515,29 @@
     <p class="subtitle">
       <span data-tr="Her kaşıkta ayrı bir keyif." data-en="A different pleasure in every spoon.">Her kaşıkta ayrı bir keyif.</span>
     </p>
+  </section>
+
+  <div class="cat">
+    <span class="line" aria-hidden="true"></span>
+    <span class="label">
+      <span data-tr="Hikayemiz" data-en="Our Story">Hikayemiz</span>
+    </span>
+    <span class="line" aria-hidden="true"></span>
+  </div>
+
+  <section class="story" aria-label="Hikayemiz">
+    <model-viewer src="menu-foto/mahmutcan-pilav.glb" class="mv3d-bg"
+      auto-rotate rotation-per-second="8deg" interaction-prompt="none"
+      disable-tap disable-pan shadow-intensity="0" camera-orbit="180deg 82deg 1.75m"
+      alt="" loading="lazy"></model-viewer>
+    <p class="lead">Merhaba, ben <strong>Mahmut Can</strong>.</p>
+    <p>Gastronomi ve mutfak sanatlarına olan tutkumla yaklaşık 5 yıldır bu sektörün içerisinde yer alıyorum. Isparta Uygulamalı Bilimler Üniversitesi Aşçılık Bölümü mezunu olarak eğitim hayatımın ardından, 3 yıl boyunca özel sektörde aşçı olarak görev yaptım ve bu süreçte mesleki bilgi ve deneyimimi geliştirme fırsatı buldum.</p>
+    <p>Edindiğim tecrübeleri kendi vizyonumla birleştirmek amacıyla özel sektörden ayrılarak <strong>Fethiye Pilavcısı</strong> markasını kurdum. En büyük hedefim; kaliteli malzemeler, özenle hazırlanan lezzetler ve samimi hizmet anlayışıyla siz değerli misafirlerimize en iyi deneyimi sunmaktır.</p>
+    <p>Bizi tercih ettiğiniz için teşekkür eder, afiyetle yemenizi dilerim.</p>
+    <div class="sign">
+      <span class="sign-name">Mahmut Can</span>
+      <span class="sign-role">Fethiye Pilavcısı Kurucu ve Geliştiricisi</span>
+    </div>
   </section>
 
   <div class="cat">
@@ -444,14 +579,33 @@
 <script>
 (function(){
   const menu = [
-    {slug:'tavuklu', tr:'Tavuklu Pilav', en:'Chicken with Rice', prices:[150,220,280]},
-    {slug:'fasulyeli', tr:'Kuru Fasulyeli Pilav', en:'Beans with Rice', prices:[150,220,280]},
-    {slug:'soteli', tr:'Tavuk Soteli Pilav', en:'Sauteed Chicken with Rice', prices:[200,280,330]},
-    {slug:'kori', tr:'Köri Soslu Tavuk Pilav', en:'Curry Sauce Chicken with Rice', prices:[200,280,330]},
-    {slug:'ciger', tr:'Tavuk Ciğer Pilav', en:'Chicken Liver with Rice', prices:[200,280,330]},
-    {slug:'kremali', tr:'Kremalı Kekikli Tavuk', en:'Creamy Thyme Chicken with Rice', prices:[200,280,330]},
-    {slug:'kavurma', tr:'Pilav Üstü Kavurma', en:'Roasted Meat over Rice', prices:[250,350,450]},
-    {slug:'nohutlu', tr:'Nohutlu Sade Pilav', en:'Plain Rice with Chickpeas', prices:[100,150,200]},
+    {slug:'tavuklu', tr:'Tavuklu Pilav', en:'Chicken with Rice', prices:[150,220,280], photo:'menu-foto/tavuklu-pilav.jpg',
+      desc:'Tereyağında demlenen pilav. Üstünde elle didiklenmiş haşlama tavuk.',
+      descEn:'Rice steamed in butter. Topped with hand-pulled boiled chicken.'},
+    {slug:'fasulyeli', tr:'Kuru Fasulyeli Pilav', en:'Beans with Rice', prices:[150,220,280], photo:'menu-foto/kuru-fasulyeli-pilav.jpg',
+      desc:'Kıvamında kuru fasulye. Altında tane tane pilav. Tok tutar.',
+      descEn:'White beans cooked just right, over fluffy rice. Keeps you full.'},
+    {slug:'soteli', tr:'Tavuk Soteli Pilav', en:'Sauteed Chicken with Rice', prices:[200,280,330], photo:'menu-foto/tavuk-soteli-pilav.jpg',
+      desc:'Tavuk biberle soğanla soteleniyor. Pilavın üstünde sıcak gelir.',
+      descEn:'Chicken sauteed with peppers and onions. Served warm over rice.'},
+    {slug:'kori', tr:'Köri Soslu Tavuk Pilav', en:'Curry Sauce Chicken with Rice', prices:[200,280,330], photo:'menu-foto/kori-soslu-tavuk.jpg',
+      desc:'Tavuğun üstüne hafif köri sosu. Sade pilava ayrı bir tat.',
+      descEn:'Chicken with a mild curry sauce. A different note over plain rice.'},
+    {slug:'ciger', tr:'Tavuk Ciğer Pilav', en:'Chicken Liver with Rice', prices:[200,280,330], photo:'menu-foto/tavuk-ciger-pilav.jpg',
+      desc:'Taze tavuk ciğeri baharatıyla kavruldu. Seveni bilir.',
+      descEn:'Fresh chicken liver roasted with its spices. Those who know, know.'},
+    {slug:'kremali', tr:'Kremalı Kekikli Tavuk', en:'Creamy Thyme Chicken with Rice', prices:[200,280,330], photo:'menu-foto/kremali-kekikli-tavuk.jpg',
+      desc:'Kekikli kremalı sosta tavuk. Yumuşacık ve doyurucu.',
+      descEn:'Chicken in a creamy thyme sauce. Soft and filling.'},
+    {slug:'kavurma', tr:'Pilav Üstü Kavurma', en:'Roasted Meat over Rice', prices:[250,350,450], photo:'menu-foto/pilav-ustu-kavurma.jpg',
+      desc:'Kendi yağında kavrulan et. Tane pilavın üstünde. Tezgahın gözdesi.',
+      descEn:'Meat roasted in its own fat, over rice. The counter favorite.'},
+    {slug:'nohutlu', tr:'Nohutlu Sade Pilav', en:'Plain Rice with Chickpeas', prices:[100,150,200], photo:'menu-foto/nohutlu-sade-pilav.jpg',
+      desc:'Tereyağlı pilav haşlanmış nohutla. Sade ama tam kıvamında.',
+      descEn:'Buttery rice with boiled chickpeas. Plain but just right.'},
+    {slug:'misir', tr:'Soslu Mısır', en:'Corn in Sauce', prices:[130,180,220], photo:'menu-foto/soslu-misir.jpg',
+      desc:'Özel sosuyla mısır. Tatlısı tuzlusu yanında.',
+      descEn:'Corn tossed in our own sauce. Sweet meets savory.'},
   ];
   const drinks = [
     {tr:'Kutu Meşrubat', en:'Soft Drinks', price:80},
@@ -462,67 +616,32 @@
     {tr:'Su', en:'Water', price:20},
   ];
 
-  const sizeKeys = ['az','1p','15p'];
   const sizeLabels = ['AZ','1P','1.5P'];
-
-  function plateSvg(portionIdx){
-    const riceScale = [0.42, 0.58, 0.74][portionIdx];
-    const rw = 40 * riceScale;
-    const rh = 13 * riceScale;
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="50" cy="58" rx="38" ry="11" fill="#1A1A1A" opacity="0.05"/>
-        <ellipse cx="50" cy="52" rx="40" ry="13" fill="#ffffff" stroke="#1A1A1A" stroke-opacity="0.12" stroke-width="0.6"/>
-        <ellipse cx="50" cy="52" rx="34" ry="10" fill="#FAF8F3" stroke="#1A1A1A" stroke-opacity="0.08" stroke-width="0.4"/>
-        <ellipse cx="50" cy="50" rx="${rw}" ry="${rh}" fill="#E8D9A8"/>
-        <ellipse cx="50" cy="49" rx="${rw*0.7}" ry="${rh*0.55}" fill="#F2E5BB" opacity="0.7"/>
-        <circle cx="${50 - rw*0.3}" cy="${49 - rh*0.2}" r="0.7" fill="#B89B5E" opacity="0.5"/>
-        <circle cx="${50 + rw*0.2}" cy="${49 + rh*0.1}" r="0.7" fill="#B89B5E" opacity="0.5"/>
-        <circle cx="${50 + rw*0.4}" cy="${49 - rh*0.3}" r="0.5" fill="#B89B5E" opacity="0.4"/>
-      </svg>`;
-  }
 
   const menuEl = document.getElementById('menu');
   menu.forEach((item) => {
     const card = document.createElement('article');
     card.className = 'item';
     card.dataset.slug = item.slug;
-    card.dataset.active = '1';
 
-    const portionsRow = sizeKeys.map((sk, i) => `
-        <button class="portion ${i===1?'active':''}" data-idx="${i}" aria-label="Porsiyon ${sizeLabels[i]}">
-          <div class="thumb" data-thumb="${i}">${plateSvg(i)}</div>
-          <div class="size">${sizeLabels[i]}</div>
-        </button>`).join('');
-
-    const pricesRow = item.prices.map((p, i) => `
-      <div class="price ${i===1?'active':''}" data-price="${i}"><span class="currency">₺</span>${p}</div>
-    `).join('');
+    const sizesRow = item.prices.map((p, i) => `
+        <div class="size-opt ${i===1?'active':''}" data-idx="${i}">
+          <span class="size-lbl">${sizeLabels[i]}</span>
+          <span class="size-price"><span class="currency">₺</span>${p}</span>
+        </div>`).join('');
 
     card.innerHTML = `
-      <div class="name-tr" data-tr="${item.tr}" data-en="${item.en}">${item.tr}</div>
-      <div class="name-en" data-tr="${item.en}" data-en="${item.tr}">${item.en}</div>
-      <div class="portions">${portionsRow}</div>
-      <div class="prices">${pricesRow}</div>
+      <figure class="shot">
+        <img src="${item.photo}" alt="${item.tr}" loading="lazy">
+        <span class="badge">1 PORSİYON</span>
+      </figure>
+      <div class="body">
+        <h3 class="name-tr" data-tr="${item.tr}" data-en="${item.en}">${item.tr}</h3>
+        <div class="name-en" data-tr="${item.en}" data-en="${item.tr}">${item.en}</div>
+        <p class="desc" data-tr="${item.desc}" data-en="${item.descEn}">${item.desc}</p>
+        <div class="sizes">${sizesRow}</div>
+      </div>
     `;
-
-    sizeKeys.forEach((sk, i) => {
-      const probe = new Image();
-      probe.onload = () => {
-        const t = card.querySelector(`[data-thumb="${i}"]`);
-        if (t) t.innerHTML = `<img src="photos/${item.slug}-${sk}.jpg" alt="${item.tr} ${sizeLabels[i]}" loading="lazy">`;
-      };
-      probe.src = `photos/${item.slug}-${sk}.jpg`;
-    });
-
-    card.addEventListener('click', (e) => {
-      const btn = e.target.closest('.portion');
-      if (!btn) return;
-      const i = +btn.dataset.idx;
-      card.dataset.active = i;
-      card.querySelectorAll('.portion').forEach(b => b.classList.toggle('active', +b.dataset.idx === i));
-      card.querySelectorAll('.price').forEach(p => p.classList.toggle('active', +p.dataset.price === i));
-    });
 
     menuEl.appendChild(card);
   });

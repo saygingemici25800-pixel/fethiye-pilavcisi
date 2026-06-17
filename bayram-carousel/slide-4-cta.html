@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, initial-scale=1.0">
+<title>Kurban Bayramı · Slide 4 · CTA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:#222; }
+  body{ display:flex; justify-content:center; align-items:center; min-height:100vh; }
+
+  .canvas{
+    width:1080px; height:1080px;
+    position:relative; overflow:hidden;
+    background:#FAF8F3;
+    color:#1A1A1A;
+    font-family:'DM Sans', sans-serif;
+  }
+
+  /* z6 — marka logosu (sol üst, cream zeminde → terra) */
+  .brand-logo{
+    position:absolute; top:60px; left:80px; z-index:6;
+    color:#00B4C8; opacity:0.85;
+  }
+  .brand-logo svg{ display:block; }
+
+  /* eyebrow — sağ üst */
+  .eyebrow{
+    position:absolute; top:130px; right:90px; z-index:5;
+    text-align:right; line-height:1.7;
+  }
+  .eyebrow .num{
+    font-family:'Fraunces', serif; font-style:italic; font-size:16px;
+    letter-spacing:0.18em; color:#00B4C8;
+  }
+  .eyebrow .tag{
+    font-family:'Fraunces', serif; font-style:italic; font-size:14px;
+    letter-spacing:0.22em; color:#1A1A1A; opacity:0.6;
+  }
+
+  /* başlık — orta-sol */
+  .title{
+    position:absolute; left:90px; top:170px; z-index:4;
+    font-family:'Fraunces', serif;
+    font-size:140px; line-height:0.95; letter-spacing:-2px;
+  }
+  .title .l1{ display:block; color:#1A1A1A; font-weight:400; }
+  .title .l2{ display:block; color:#00B4C8; font-style:italic; font-weight:400; }
+
+  /* CTA focal grup — ortalı */
+  .cta-kicker{
+    position:absolute; left:0; right:0; top:474px; z-index:4;
+    text-align:center;
+    font-family:'DM Sans', sans-serif; font-size:11px; font-weight:700;
+    letter-spacing:3px; text-transform:uppercase; color:#00B4C8;
+  }
+  .phone{
+    position:absolute; left:0; right:0; top:512px; z-index:4;
+    text-align:center;
+    font-family:'Fraunces', serif; font-weight:400; font-style:normal;
+    font-size:90px; letter-spacing:-1px; color:#1A1A1A;
+  }
+  .rule{
+    position:absolute; left:50%; top:646px; z-index:4;
+    width:300px; height:1px; background:#00B4C8;
+    transform:translateX(-50%);
+  }
+
+  /* bilgi satırları — sol yaslı */
+  .info{
+    position:absolute; left:90px; top:700px; z-index:4;
+    font-family:'Fraunces', serif; font-size:22px; line-height:1.7;
+    color:#1A1A1A;
+  }
+  .info .row{ display:flex; align-items:baseline; gap:24px; }
+  .info .lab{ color:#00B4C8; width:96px; flex:none; font-style:italic; }
+  .info .val{ color:#1A1A1A; }
+
+  /* davetkar kapanış — sol yaslı */
+  .closing{
+    position:absolute; left:90px; top:840px; z-index:4;
+    max-width:840px;
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:26px; line-height:1.5; color:#1A1A1A;
+  }
+  .closing .note{
+    display:block; margin-top:14px;
+    font-family:'Fraunces', serif; font-style:italic;
+    font-size:16px; color:#00B4C8; opacity:0.95;
+  }
+
+  /* footer — sol alt */
+  .footer{
+    position:absolute; left:90px; bottom:48px; z-index:5;
+    font-family:'DM Sans', sans-serif; font-size:11px; font-weight:500;
+    letter-spacing:2px; line-height:1.9; color:#1A1A1A; opacity:0.5;
+  }
+  .footer .loc{ text-transform:uppercase; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+
+    <div class="brand-logo">
+      <svg viewBox="28 0 188 70" height="32" overflow="visible">
+        <path d="M 50 25 Q 40 10 55 8 Q 65 0 75 8 Q 90 5 88 22 Q 95 30 85 38 L 35 38 Q 25 30 32 22 Q 30 5 50 8 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <rect x="32" y="38" width="56" height="6" fill="currentColor" opacity="0.9"/>
+        <text x="100" y="40" font-family="'DM Sans',sans-serif" font-style="italic" font-size="14" font-weight="700" fill="currentColor">FETHİYE</text>
+        <text x="100" y="60" font-family="'DM Sans',sans-serif" font-style="italic" font-size="20" font-weight="800" fill="currentColor" letter-spacing="1">PİLAVCISI</text>
+      </svg>
+    </div>
+
+    <div class="eyebrow">
+      <div class="num">— IV / IV —</div>
+      <div class="tag">— SOFRANIZA BUYRUN —</div>
+    </div>
+
+    <h1 class="title">
+      <span class="l1">Sipariş</span>
+      <span class="l2">Hattımız</span>
+    </h1>
+
+    <div class="cta-kicker">BAYRAMIN 3. GÜNÜ İTİBARİYLE AÇIĞIZ</div>
+    <div class="phone">0 507 111 76 10</div>
+    <div class="rule"></div>
+
+    <div class="info">
+      <div class="row"><span class="lab">Adres</span><span class="val">Tuzla, İnönü Bulvarı No: 143/A · Fethiye</span></div>
+      <div class="row"><span class="lab">Saatler</span><span class="val">Her gün · 10:00 — 22:00</span></div>
+    </div>
+
+    <div class="closing">
+      Bayram bizimle daha tatlı.<br>
+      Sofrada bir tabak da senin için ayrılsın.
+      <span class="note">Tavuklu Pilav, Pilav Üstü Kavurma ve dahası — seni bekler.</span>
+    </div>
+
+    <div class="footer">
+      @fethiye.pilavcisi<br>
+      <span class="loc">TUZLA · FETHİYE</span>
+    </div>
+
+  </div>
+</body>
+</html>
