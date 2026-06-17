@@ -13,7 +13,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <style>
   :root{
     --bg:#FAF8F3;
@@ -24,6 +23,7 @@
     --hair:#1A1A1A14;
     --hair-strong:#1A1A1A24;
     --cyan:#00B4C8;
+    --accent-gold:#C8881E;
     --serif:'Fraunces', 'Times New Roman', serif;
     --sans:'DM Sans', system-ui, sans-serif;
   }
@@ -165,6 +165,16 @@
     color:var(--ink-soft);
     letter-spacing:0.02em;
     white-space:nowrap;
+  }
+  /* nadir altın vurgu — sadece bölüm başlığı yıldızı */
+  .cat .label::before{
+    content:"★";
+    color:var(--accent-gold);
+    font-family:var(--sans);
+    font-style:normal;
+    font-size:9px;
+    margin-right:9px;
+    vertical-align:2px;
   }
 
   /* MENU CARDS */
@@ -364,18 +374,6 @@
     overflow:hidden;
   }
   .story > *{ position:relative; z-index:2; }
-  .story .mv3d-bg{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:0;
-    opacity:.30;
-    pointer-events:none;
-    filter:saturate(.75) contrast(.92);
-    background:transparent;
-    --poster-color:transparent;
-  }
   .story .lead{
     font-family:var(--serif);
     font-style:italic;
@@ -546,10 +544,6 @@
   </div>
 
   <section class="story" aria-label="Hikayemiz">
-    <model-viewer src="menu-foto/mahmutcan-pilav.glb" class="mv3d-bg"
-      interaction-prompt="none"
-      disable-tap disable-pan shadow-intensity="0" camera-orbit="90deg 90deg 1.75m"
-      alt="" loading="lazy"></model-viewer>
     <p class="lead"><span data-tr="Merhaba, ben " data-en="Hello, I'm ">Merhaba, ben </span><strong data-tr="Mahmut Can" data-en="Mahmut Can">Mahmut Can</strong><span data-tr="." data-en=".">.</span></p>
     <p data-tr="Gastronomi ve mutfak sanatlarına olan tutkumla yaklaşık 5 yıldır bu sektörün içerisinde yer alıyorum. Isparta Uygulamalı Bilimler Üniversitesi Aşçılık Bölümü mezunu olarak eğitim hayatımın ardından, 3 yıl boyunca özel sektörde aşçı olarak görev yaptım ve bu süreçte mesleki bilgi ve deneyimimi geliştirme fırsatı buldum." data-en="Driven by my passion for gastronomy and the culinary arts, I've been working in this field for about five years. After graduating from the Culinary Arts program at Isparta University of Applied Sciences, I spent three years as a chef in the private sector, where I deepened my craft and experience.">Gastronomi ve mutfak sanatlarına olan tutkumla yaklaşık 5 yıldır bu sektörün içerisinde yer alıyorum. Isparta Uygulamalı Bilimler Üniversitesi Aşçılık Bölümü mezunu olarak eğitim hayatımın ardından, 3 yıl boyunca özel sektörde aşçı olarak görev yaptım ve bu süreçte mesleki bilgi ve deneyimimi geliştirme fırsatı buldum.</p>
     <p><span data-tr="Edindiğim tecrübeleri kendi vizyonumla birleştirmek amacıyla özel sektörden ayrılarak " data-en="To bring that experience together with my own vision, I left the private sector and founded ">Edindiğim tecrübeleri kendi vizyonumla birleştirmek amacıyla özel sektörden ayrılarak </span><strong data-tr="Fethiye Pilavcısı" data-en="Fethiye Pilavcısı">Fethiye Pilavcısı</strong><span data-tr=" markasını kurdum. En büyük hedefim; kaliteli malzemeler, özenle hazırlanan lezzetler ve samimi hizmet anlayışıyla siz değerli misafirlerimize en iyi deneyimi sunmaktır." data-en=". My goal is simple: quality ingredients, dishes prepared with care, and warm, genuine service that gives you the best possible experience."> markasını kurdum. En büyük hedefim; kaliteli malzemeler, özenle hazırlanan lezzetler ve samimi hizmet anlayışıyla siz değerli misafirlerimize en iyi deneyimi sunmaktır.</span></p>
