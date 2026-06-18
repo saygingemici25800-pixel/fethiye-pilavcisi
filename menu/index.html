@@ -476,12 +476,9 @@
   #intro{position:fixed;inset:0;z-index:9999;background:#F6F0E1;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}
   #intro.hide{opacity:0;pointer-events:none}
   #introLogo{animation:introZoom 2.4s cubic-bezier(.6,0,.3,1) forwards}
-  #introLogo path,#introLogo circle:first-of-type{stroke-dasharray:130;stroke-dashoffset:130;animation:draw 1.2s ease forwards}
-  #introLogo path:nth-of-type(1){animation-delay:.4s}
-  #introLogo path:nth-of-type(2){animation-delay:.7s}
-  #introLogo circle:nth-of-type(2){opacity:0;animation:fadein .4s ease 1.05s forwards}
-  @keyframes draw{to{stroke-dashoffset:0}}
-  @keyframes fadein{to{opacity:1}}
+  /* sapka: stroke-draw — dash uzunlugu JS'te path.getTotalLength() ile ayarlanir */
+  #introLogo .band,#introLogo .word{opacity:0;transition:opacity .45s ease}
+  #introLogo.fill .band,#introLogo.fill .word{opacity:1}
   /* iki hızlı, hafif kamera zoom'u — çizim biterken */
   @keyframes introZoom{
     0%{transform:scale(.86)}
@@ -497,13 +494,30 @@
 </head>
 <body>
 <div id="intro" aria-hidden="true">
-  <svg id="introLogo" viewBox="0 0 40 40" width="130" height="130">
-    <circle cx="20" cy="20" r="18" fill="none" stroke="#0E7479" stroke-width="2.2"/>
-    <path d="M 12 22 Q 20 14 28 22" fill="none" stroke="#0E7479" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M 14 26 L 26 26" fill="none" stroke="#0E7479" stroke-width="2.2" stroke-linecap="round"/>
-    <circle cx="20" cy="13" r="1.6" fill="#0E7479"/>
+  <svg id="introLogo" viewBox="0 0 240 100" width="240" height="100">
+    <path class="hat" d="M 50 25 Q 40 10 55 8 Q 65 0 75 8 Q 90 5 88 22 Q 95 30 85 38 L 35 38 Q 25 30 32 22 Q 30 5 50 8 Z" fill="none" stroke="#1A1A1A" stroke-width="3"/>
+    <rect class="band" x="32" y="38" width="56" height="6" fill="#1A1A1A"/>
+    <text class="word" x="100" y="42" font-family="DM Sans, sans-serif" font-style="italic" font-size="14" font-weight="700" fill="#1A1A1A">FETHİYE</text>
+    <text class="word" x="100" y="62" font-family="DM Sans, sans-serif" font-style="italic" font-size="20" font-weight="800" fill="#1A1A1A" letter-spacing="1">PİLAVCISI</text>
   </svg>
 </div>
+<script>
+  (function(){
+    var logo = document.getElementById('introLogo');
+    if(!logo) return;
+    // her path'i gercek uzunluguna gore ciz (sabit deger yerine getTotalLength)
+    logo.querySelectorAll('path').forEach(function(p, i){
+      var len = p.getTotalLength();
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = len;
+      p.getBoundingClientRect(); // reflow — baslangici transitionsiz sabitle
+      p.style.transition = 'stroke-dashoffset 1.2s ease ' + (0.4 + i*0.3) + 's';
+      p.style.strokeDashoffset = '0';
+    });
+    // cizim biterken bant + yazi belirsin
+    setTimeout(function(){ logo.classList.add('fill'); }, 1500);
+  })();
+</script>
 <div class="frame">
 
   <header class="bar">
