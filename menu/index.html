@@ -482,12 +482,14 @@
   /* iki hızlı, hafif kamera zoom'u — çizim biterken */
   @keyframes introZoom{
     0%{transform:scale(.86)}
-    45%{transform:scale(1)}
-    58%{transform:scale(1.12)}   /* 1. hızlı zoom */
-    68%{transform:scale(1)}
-    80%{transform:scale(1.12)}   /* 2. hızlı zoom */
-    88%{transform:scale(1)}
-    100%{transform:scale(1.04)}
+    60%{transform:scale(1)}        /* cizilirken buyur, ~1.44s'te otur */
+    67%{transform:scale(1.12)}     /* 1. zoom — cizim tam biter (~1.6s) */
+    73%{transform:scale(1)}
+    81%{transform:scale(1.12)}     /* 2. zoom — "Fethiye Pilavcisi" yazisi biter (~1.95s) */
+    85%{transform:scale(1)}
+    90%{transform:scale(1.06)}     /* 3. zoom — hemen ardindan, hafif */
+    94%{transform:scale(1)}
+    100%{transform:scale(1.03)}
   }
   @media (prefers-reduced-motion: reduce){#intro{display:none}}
 </style>
